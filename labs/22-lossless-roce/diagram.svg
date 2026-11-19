@@ -1,0 +1,47 @@
+<svg xmlns='http://www.w3.org/2000/svg' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' viewBox='0 0 760 372' role='img' aria-label='Two sender VMs share a bottleneck router to one receiver; PFC and DCQCN run in simulation' font-size='13'>
+    <rect width='100%' height='100%' fill='#ffffff'/>
+    <text x='24' y='32' font-size='15' font-weight='600' fill='#1f2328'>Real RoCEv2 packets and ECN marking in VMs; PFC and DCQCN in simulation</text>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M220 92L290 136'/>
+    <path d='M220 180L290 136'/>
+    <path d='M470 136H540'/>
+    </g>
+    <g>
+    <rect x='24' y='48' width='712' height='196' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='36' y='232' font-size='11.5' fill='#59636e'>Parts A and B: libvirt VMs bridged into containerlab</text>
+    </g>
+    <g>
+    <rect x='40' y='64' width='180' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='130' y='88' text-anchor='middle' font-weight='600' fill='#1f2328'>Sender VM 1</text>
+    <text x='130' y='104' text-anchor='middle' font-size='11.5' fill='#59636e'>Soft-RoCE, DCTCP</text>
+    </g>
+    <g>
+    <rect x='40' y='152' width='180' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='130' y='176' text-anchor='middle' font-weight='600' fill='#1f2328'>Sender VM 2</text>
+    <text x='130' y='192' text-anchor='middle' font-size='11.5' fill='#59636e'>Soft-RoCE, DCTCP</text>
+    </g>
+    <g>
+    <rect x='290' y='108' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='132' text-anchor='middle' font-weight='600' fill='#1f2328'>Bottleneck router</text>
+    <text x='380' y='148' text-anchor='middle' font-size='11.5' fill='#59636e'>tc: loss, rate limit, ECN</text>
+    </g>
+    <g>
+    <rect x='540' y='108' width='180' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='630' y='132' text-anchor='middle' font-weight='600' fill='#1f2328'>Receiver VM</text>
+    <text x='630' y='148' text-anchor='middle' font-size='11.5' fill='#59636e'>Soft-RoCE</text>
+    </g>
+    <g>
+    <rect x='24' y='260' width='712' height='96' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='36' y='344' font-size='11.5' fill='#59636e'>Parts C and D: no lab traffic</text>
+    </g>
+    <g>
+    <rect x='40' y='272' width='330' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='205' y='292' text-anchor='middle' font-weight='600' fill='#1f2328'>ns-3 RDMA simulator</text>
+    <text x='205' y='308' text-anchor='middle' font-size='11.5' fill='#59636e'>PFC, DCQCN, HPCC, TIMELY on a fat-tree</text>
+    </g>
+    <g>
+    <rect x='390' y='272' width='330' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='555' y='292' text-anchor='middle' font-weight='600' fill='#1f2328'>Design on paper</text>
+    <text x='555' y='308' text-anchor='middle' font-size='11.5' fill='#59636e'>Headroom, DSCP map, watchdog, deadlock</text>
+    </g>
+    </svg>

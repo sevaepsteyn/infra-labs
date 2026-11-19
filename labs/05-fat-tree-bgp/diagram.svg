@@ -1,0 +1,154 @@
+<svg xmlns='http://www.w3.org/2000/svg' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' viewBox='0 0 760 396' role='img' aria-label='A k=4 fat-tree: four core switches, four pods of two aggregation and two edge switches' font-size='13'>
+    <rect width='100%' height='100%' fill='#ffffff'/>
+    <text x='24' y='32' font-size='15' font-weight='600' fill='#1f2328'>Three tiers: one core ASN, one aggregation ASN per pod, one ASN per edge switch</text>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M65 176L140 104'/>
+    <path d='M65 176L300 104'/>
+    <path d='M65 224L65 264'/>
+    <path d='M65 224L149 264'/>
+    <path d='M149 176L460 104'/>
+    <path d='M149 176L620 104'/>
+    <path d='M149 224L65 264'/>
+    <path d='M149 224L149 264'/>
+    <path d='M247 176L140 104'/>
+    <path d='M247 176L300 104'/>
+    <path d='M247 224L247 264'/>
+    <path d='M247 224L331 264'/>
+    <path d='M331 176L460 104'/>
+    <path d='M331 176L620 104'/>
+    <path d='M331 224L247 264'/>
+    <path d='M331 224L331 264'/>
+    <path d='M429 176L140 104'/>
+    <path d='M429 176L300 104'/>
+    <path d='M429 224L429 264'/>
+    <path d='M429 224L513 264'/>
+    <path d='M513 176L460 104'/>
+    <path d='M513 176L620 104'/>
+    <path d='M513 224L429 264'/>
+    <path d='M513 224L513 264'/>
+    <path d='M611 176L140 104'/>
+    <path d='M611 176L300 104'/>
+    <path d='M611 224L611 264'/>
+    <path d='M611 224L695 264'/>
+    <path d='M695 176L460 104'/>
+    <path d='M695 176L620 104'/>
+    <path d='M695 224L611 264'/>
+    <path d='M695 224L695 264'/>
+    </g>
+    <g>
+    <rect x='80' y='56' width='120' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='140' y='76' text-anchor='middle' font-weight='600' fill='#1f2328'>Core 1</text>
+    <text x='140' y='92' text-anchor='middle' font-size='11.5' fill='#59636e'>AS 65000</text>
+    </g>
+    <g>
+    <rect x='240' y='56' width='120' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='300' y='76' text-anchor='middle' font-weight='600' fill='#1f2328'>Core 2</text>
+    <text x='300' y='92' text-anchor='middle' font-size='11.5' fill='#59636e'>AS 65000</text>
+    </g>
+    <g>
+    <rect x='400' y='56' width='120' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='460' y='76' text-anchor='middle' font-weight='600' fill='#1f2328'>Core 3</text>
+    <text x='460' y='92' text-anchor='middle' font-size='11.5' fill='#59636e'>AS 65000</text>
+    </g>
+    <g>
+    <rect x='560' y='56' width='120' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='620' y='76' text-anchor='middle' font-weight='600' fill='#1f2328'>Core 4</text>
+    <text x='620' y='92' text-anchor='middle' font-size='11.5' fill='#59636e'>AS 65000</text>
+    </g>
+    <g>
+    <rect x='22' y='160' width='170' height='196' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='34' y='344' font-size='11.5' fill='#59636e'>Pod 1 · 2 hosts per edge</text>
+    </g>
+    <g>
+    <rect x='28' y='176' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='65' y='196' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Agg 1-1</text>
+    <text x='65' y='212' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65101</text>
+    </g>
+    <g>
+    <rect x='28' y='264' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='65' y='284' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Edge 1-1</text>
+    <text x='65' y='300' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65211</text>
+    </g>
+    <g>
+    <rect x='112' y='176' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='149' y='196' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Agg 1-2</text>
+    <text x='149' y='212' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65101</text>
+    </g>
+    <g>
+    <rect x='112' y='264' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='149' y='284' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Edge 1-2</text>
+    <text x='149' y='300' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65212</text>
+    </g>
+    <g>
+    <rect x='204' y='160' width='170' height='196' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='216' y='344' font-size='11.5' fill='#59636e'>Pod 2 · 2 hosts per edge</text>
+    </g>
+    <g>
+    <rect x='210' y='176' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='247' y='196' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Agg 2-1</text>
+    <text x='247' y='212' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65102</text>
+    </g>
+    <g>
+    <rect x='210' y='264' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='247' y='284' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Edge 2-1</text>
+    <text x='247' y='300' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65221</text>
+    </g>
+    <g>
+    <rect x='294' y='176' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='331' y='196' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Agg 2-2</text>
+    <text x='331' y='212' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65102</text>
+    </g>
+    <g>
+    <rect x='294' y='264' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='331' y='284' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Edge 2-2</text>
+    <text x='331' y='300' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65222</text>
+    </g>
+    <g>
+    <rect x='386' y='160' width='170' height='196' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='398' y='344' font-size='11.5' fill='#59636e'>Pod 3 · 2 hosts per edge</text>
+    </g>
+    <g>
+    <rect x='392' y='176' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='429' y='196' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Agg 3-1</text>
+    <text x='429' y='212' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65103</text>
+    </g>
+    <g>
+    <rect x='392' y='264' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='429' y='284' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Edge 3-1</text>
+    <text x='429' y='300' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65231</text>
+    </g>
+    <g>
+    <rect x='476' y='176' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='513' y='196' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Agg 3-2</text>
+    <text x='513' y='212' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65103</text>
+    </g>
+    <g>
+    <rect x='476' y='264' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='513' y='284' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Edge 3-2</text>
+    <text x='513' y='300' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65232</text>
+    </g>
+    <g>
+    <rect x='568' y='160' width='170' height='196' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='580' y='344' font-size='11.5' fill='#59636e'>Pod 4 · 2 hosts per edge</text>
+    </g>
+    <g>
+    <rect x='574' y='176' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='611' y='196' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Agg 4-1</text>
+    <text x='611' y='212' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65104</text>
+    </g>
+    <g>
+    <rect x='574' y='264' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='611' y='284' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Edge 4-1</text>
+    <text x='611' y='300' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65241</text>
+    </g>
+    <g>
+    <rect x='658' y='176' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='695' y='196' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Agg 4-2</text>
+    <text x='695' y='212' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65104</text>
+    </g>
+    <g>
+    <rect x='658' y='264' width='74' height='48' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='695' y='284' text-anchor='middle' font-weight='600' fill='#1f2328' font-size='12'>Edge 4-2</text>
+    <text x='695' y='300' text-anchor='middle' font-size='10.5' fill='#59636e'>AS 65242</text>
+    </g>
+    </svg>

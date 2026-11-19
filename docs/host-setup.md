@@ -1,6 +1,6 @@
 # Lab host setup
 
-One x86 host runs every lab on bare metal: Ubuntu Server 26.04 LTS, Docker CE, containerlab and kind, with KVM for vendor VM images. The Mac is only a front end, and nothing in a lab is exposed to the home network; only lab 15 reaches outside, over its tunnels to a cloud VPC.
+One x86 host runs every lab on bare metal: Ubuntu Server 26.04 LTS, Docker CE, containerlab and kind, with KVM for vendor VM images. The Mac is only a front end, and nothing in a lab is exposed to the home network; only lab 16 reaches outside, over its tunnels to a cloud VPC.
 
 ![The Mac is only a front end; every lab runs on the x86 host](lab-host.svg)
 
@@ -29,7 +29,7 @@ One x86 host runs every lab on bare metal: Ubuntu Server 26.04 LTS, Docker CE, c
 | KSM | `/sys/kernel/mm/ksm/run` = 1, made persistent | Identical VMs share memory pages |
 | Swap | zram, about 8 GB | A safety net so one oversized node doesn't trigger the OOM killer |
 | inotify | `fs.inotify.max_user_watches` = 524288, `max_user_instances` = 512 | Multi-node kind clusters fail to start at the defaults |
-| MPLS | `mpls_router` and `mpls_iptunnel` modules, `net.mpls.platform_labels` = 100000 | Linux-based nodes forwarding MPLS in lab 18 |
+| MPLS | `mpls_router` and `mpls_iptunnel` modules, `net.mpls.platform_labels` = 100000 | Linux-based nodes forwarding MPLS in lab 19 |
 | Hugepages | Off by default; reserve them only for XRd vRouter | Avoids locking memory other labs need |
 
 ## Container runtime and lab tooling
@@ -60,9 +60,9 @@ VS Code on the Mac connects over Remote SSH and runs the Containerlab extension 
 
 ## Tool choices
 
-- **containerlab** for every lab with a network fabric: labs 2–5, 8–10, 12, 13, 15 and 17–21, and optionally 11, 14 and 22; k8s-kind clusters plug into it as nodes.
-- **kind alone** where there's no fabric: labs 0, 1, 6 and 7, and most of 11, 14 and 22.
-- **libvirt VMs** as the nodes themselves in lab 16, and for lab 13's data transfer node.
+- **containerlab** for every lab with a network fabric: labs 2–6, 9–11, 13, 14, 16 and 18–23, and optionally 12, 15 and 24; k8s-kind clusters plug into it as nodes.
+- **kind alone** where there's no fabric: labs 0, 1, 7 and 8, and most of 12, 15 and 24.
+- **libvirt VMs** as the nodes themselves in lab 17, for lab 14's data transfer node, and for lab 22's Soft-RoCE hosts.
 - **netlab** on top of containerlab once routing configs get repetitive.
 - **libvirt VMs** running kubeadm or k3s, wired into containerlab over Linux bridges, when per-node kernel behavior matters (kernel tuning, some eBPF and WireGuard tests). All kind nodes share the host's kernel.
 
@@ -77,7 +77,7 @@ VS Code on the Mac connects over Remote SSH and runs the Containerlab extension 
 Each lab's **Automation** line follows the closest real environment that has published how it works; where that environment hasn't published its tooling, the lab uses the nearest documented practice. Public sources describe tools and patterns, not internal details, so treat each as the nearest documented practice rather than a copy of that organization's setup.
 
 - **Host:** one Ansible playbook builds the host (packages, tuning, Docker CE, lab tools), so the host can be rebuilt from scratch.
-- **Common layer:** everything in one git repo; a self-hosted GitHub Actions runner on the host; Helm for every in-cluster component; Argo CD in each cluster from lab 5 on.
+- **Common layer:** everything in one git repo; a self-hosted GitHub Actions runner on the host; Helm for every in-cluster component; Argo CD in each cluster from lab 6 on.
 - **Device configs:** netlab or Jinja templates rendered by Python and Nornir, pushed over gNMI, unless a lab below says otherwise.
 - **Public repo:** this repo is public, so the self-hosted runner must not be attached to it directly: a pull request from anyone would run code on the lab host. Attach the runner to a private mirror of the repo, and keep GitHub-hosted runners for anything that runs here.
 
