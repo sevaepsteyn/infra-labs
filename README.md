@@ -40,33 +40,33 @@ Dependencies outside the core: lab 5 needs 3, lab 8 needs 6 and 7 (their configu
 
 Ordered simplest first. Each lab lists its fit and rough RAM, then a design diagram, what to build, and exercises.
 
-| Lab | Title | Fit | RAM | Status |
-| --- | --- | --- | --- | --- |
-| 0 | [Kubernetes fundamentals](labs/00-fundamentals/README.md) | both | about 4 GB | Not started |
-| 1 | [Kind and Cilium](labs/01-kind-cilium/README.md) | both | about 4 GB | Not started |
-| 2 | [One router and kind](labs/02-one-router/README.md) | both | about 5 GB | Not started |
-| 3 | [Leaf-spine with Cilium BGP](labs/03-leaf-spine/README.md) | both | 12–14 GB | Not started |
-| 4 | [EVPN-VXLAN fabric](labs/04-evpn-vxlan/README.md) | both | 14–18 GB | Not started |
-| 5 | [Fat-tree design and BGP at scale](labs/05-fat-tree-bgp/README.md) | both | about 6 GB | Not started |
-| 6 | [Cilium in depth](labs/06-cilium-in-depth/README.md) | both | 13–15 GB | Not started |
-| 7 | [Cluster security and supply chain](labs/07-cluster-security/README.md) | AI, useful for both | about 6 GB | Not started |
-| 8 | [Multi-tenant isolation](labs/08-multi-tenant/README.md) | AI | about 8 GB | Not started |
-| 9 | [Monitoring pipeline](labs/09-monitoring/README.md) | both | 16–18 GB | Not started |
-| 10 | [Failure practice](labs/10-failure-practice/README.md) | both | 16–18 GB | Not started |
-| 11 | [Network changes tested in CI](labs/11-network-ci/README.md) | both | 10–14 GB | Not started |
-| 12 | [Inference serving](labs/12-inference-serving/README.md) | AI | about 12 GB | Not started |
-| 13 | [Storage networking](labs/13-storage-networking/README.md) | both | 14–18 GB | Not started |
-| 14 | [Science DMZ and data transfer](labs/14-science-dmz/README.md) | national labs | 10–12 GB | Not started |
-| 15 | [Slurm and Kubernetes side by side](labs/15-slurm-k8s/README.md) | national labs | 10–12 GB | Not started |
-| 16 | [Hybrid cloud connectivity](labs/16-hybrid-cloud/README.md) | AI | 4–6 GB locally plus a small cloud account | Not started |
-| 17 | [Bare-metal node lifecycle](labs/17-node-lifecycle/README.md) | both | 16–20 GB | Not started |
-| 18 | [Perlmutter-style network](labs/18-perlmutter/README.md) | national labs | 20–25 GB | Not started |
-| 19 | [Multi-site WAN](labs/19-multi-site-wan/README.md) | national labs | 16–24 GB | Not started |
-| 20 | [Doudna-style network](labs/20-doudna/README.md) | national labs | 22–26 GB | Not started |
-| 21 | [GPU training cluster, two fabrics](labs/21-gpu-training-cluster/README.md) | AI | 24–26 GB | Not started |
-| 22 | [Lossless Ethernet and RoCE congestion control](labs/22-lossless-roce/README.md) | AI, useful for both | about 6 GB | Not started |
-| 23 | [Multi-cluster and multi-region](labs/23-multi-cluster/README.md) | AI | 16–20 GB | Not started |
-| 24 | [Anthropic-style scheduling and fleet operations](labs/24-fleet-scheduling/README.md) | AI | 16–20 GB | Not started |
+| Lab | Title | Fit | RAM |
+| --- | --- | --- | --- |
+| 0 | [Kubernetes fundamentals](labs/00-fundamentals/README.md) | both | about 4 GB |
+| 1 | [Kind and Cilium](labs/01-kind-cilium/README.md) | both | about 4 GB |
+| 2 | [One router and kind](labs/02-one-router/README.md) | both | about 5 GB |
+| 3 | [Leaf-spine with Cilium BGP](labs/03-leaf-spine/README.md) | both | 12–14 GB |
+| 4 | [EVPN-VXLAN fabric](labs/04-evpn-vxlan/README.md) | both | 14–18 GB |
+| 5 | [Fat-tree design and BGP at scale](labs/05-fat-tree-bgp/README.md) | both | about 6 GB |
+| 6 | [Cilium in depth](labs/06-cilium-in-depth/README.md) | both | 13–15 GB |
+| 7 | [Cluster security and supply chain](labs/07-cluster-security/README.md) | AI, useful for both | about 6 GB |
+| 8 | [Multi-tenant isolation](labs/08-multi-tenant/README.md) | AI | about 8 GB |
+| 9 | [Monitoring pipeline](labs/09-monitoring/README.md) | both | 16–18 GB |
+| 10 | [Failure practice](labs/10-failure-practice/README.md) | both | 16–18 GB |
+| 11 | [Network changes tested in CI](labs/11-network-ci/README.md) | both | 10–14 GB |
+| 12 | [Inference serving](labs/12-inference-serving/README.md) | AI | about 12 GB |
+| 13 | [Storage networking](labs/13-storage-networking/README.md) | both | 14–18 GB |
+| 14 | [Science DMZ and data transfer](labs/14-science-dmz/README.md) | national labs | 10–12 GB |
+| 15 | [Slurm and Kubernetes side by side](labs/15-slurm-k8s/README.md) | national labs | 10–12 GB |
+| 16 | [Hybrid cloud connectivity](labs/16-hybrid-cloud/README.md) | AI | 4–6 GB locally plus a small cloud account |
+| 17 | [Bare-metal node lifecycle](labs/17-node-lifecycle/README.md) | both | 16–20 GB |
+| 18 | [Perlmutter-style network](labs/18-perlmutter/README.md) | national labs | 20–25 GB |
+| 19 | [Multi-site WAN](labs/19-multi-site-wan/README.md) | national labs | 16–24 GB |
+| 20 | [Doudna-style network](labs/20-doudna/README.md) | national labs | 22–26 GB |
+| 21 | [GPU training cluster, two fabrics](labs/21-gpu-training-cluster/README.md) | AI | 24–26 GB |
+| 22 | [Lossless Ethernet and RoCE congestion control](labs/22-lossless-roce/README.md) | AI, useful for both | about 6 GB |
+| 23 | [Multi-cluster and multi-region](labs/23-multi-cluster/README.md) | AI | 16–20 GB |
+| 24 | [Anthropic-style scheduling and fleet operations](labs/24-fleet-scheduling/README.md) | AI | 16–20 GB |
 
 ## Layout
 
