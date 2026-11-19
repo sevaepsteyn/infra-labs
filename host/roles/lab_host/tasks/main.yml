@@ -1,0 +1,61 @@
+---
+# Each feature file reads the state it needs, changes only what differs, and
+# can be run alone with --tags. Nothing here restarts a service.
+
+- name: Check the host
+  ansible.builtin.import_tasks: preflight.yml
+  tags: always
+
+- name: Snapshot
+  ansible.builtin.import_tasks: snapshot.yml
+  when: lab_snapshot_enabled | bool
+  tags: snapshot
+
+- name: Base packages
+  ansible.builtin.import_tasks: packages.yml
+  when: lab_base_packages_enabled | bool
+  tags: packages
+
+- name: Sysctl limits
+  ansible.builtin.import_tasks: sysctl.yml
+  when: lab_sysctl_enabled | bool
+  tags: sysctl
+
+- name: MPLS modules
+  ansible.builtin.import_tasks: mpls.yml
+  when: lab_mpls_enabled | bool
+  tags: mpls
+
+- name: KSM
+  ansible.builtin.import_tasks: ksm.yml
+  when: lab_ksm_enabled | bool
+  tags: ksm
+
+- name: Zram swap
+  ansible.builtin.import_tasks: zram.yml
+  when: lab_zram_enabled | bool
+  tags: zram
+
+- name: Docker
+  ansible.builtin.import_tasks: docker.yml
+  when: lab_docker_enabled | bool
+  tags: docker
+
+- name: Libvirt
+  ansible.builtin.import_tasks: libvirt.yml
+  when: lab_libvirt_enabled | bool
+  tags: libvirt
+
+- name: Users
+  ansible.builtin.import_tasks: users.yml
+  when: lab_users | length > 0
+  tags: users
+
+- name: Tools
+  ansible.builtin.import_tasks: tools.yml
+  when: lab_tools_enabled | bool
+  tags: tools
+
+- name: Verify
+  ansible.builtin.import_tasks: verify.yml
+  tags: always

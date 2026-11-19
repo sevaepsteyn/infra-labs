@@ -1,0 +1,42 @@
+---
+# Fails the run if it disturbed a Docker that was there when it started.
+# Read-only. Each feature checks its own result at the end of its own file.
+
+- name: Check a Docker that was already there
+  when: lab_docker_before.stat.exists
+  block:
+    - name: Read when the Docker daemon last started
+      ansible.builtin.command: systemctl show docker.service -p ActiveEnterTimestampMonotonic --value
+      register: lab_docker_start_after
+      changed_when: false
+      check_mode: false
+
+    - name: Check the Docker daemon was not restarted
+      ansible.builtin.assert:
+        that: lab_docker_start_after.stdout == lab_docker_start_before.stdout
+        fail_msg: >-
+          The Docker daemon restarted during this run (start time changed from
+          {{ lab_docker_start_before.stdout }} to {{ lab_docker_start_after.stdout }}).
+          This role does not restart Docker; find out what did.
+        quiet: true
+
+    - name: Read running containers
+      ansible.builtin.command: docker ps -q --no-trunc
+      register: lab_containers_after
+      changed_when: false
+      failed_when: false
+      check_mode: false
+
+    - name: Check the same containers are still running
+      ansible.builtin.assert:
+        that: lab_containers_before.stdout_lines | difference(lab_containers_after.stdout_lines) | length == 0
+        fail_msg: >-
+          Containers that were running at the start of this run have stopped:
+          {{ lab_containers_before.stdout_lines | difference(lab_containers_after.stdout_lines) }}
+        quiet: true
+
+- name: Summary
+  ansible.builtin.debug:
+    msg:
+      - "Docker: {{ 'was already installed, untouched' if lab_docker_before.stat.exists else ('installed by this run' if lab_docker_enabled else 'not installed') }}"
+      - "KVM: {{ 'available' if lab_kvm.stat.exists else 'MISSING' }}"

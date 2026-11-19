@@ -1,0 +1,115 @@
+---
+# Defaults describe a dedicated lab host, as in docs/host-setup.md.
+# For a shared or production host, turn features off per host in the inventory
+# (see inventory/hosts.example.yml).
+
+# Downloaded tool archives.
+lab_cache_dir: /var/cache/infra-labs
+# Where tool binaries are installed. A binary of the same name already there
+# is replaced.
+lab_bin_dir: /usr/local/bin
+
+# --- Features -----------------------------------------------------------------
+# Before the first change, write a one-time record of the host (packages,
+# sysctls, modules, addresses, listening ports, services, firewall rules,
+# containers) to lab_snapshot_dir. Root-only; never rewritten.
+lab_snapshot_enabled: true
+lab_snapshot_dir: /var/lib/infra-labs
+
+
+lab_base_packages_enabled: true
+
+lab_sysctl_enabled: true
+# Minimum values. A key already at or above its value is left alone.
+lab_sysctl:
+  fs.inotify.max_user_watches: 524288
+  fs.inotify.max_user_instances: 512
+
+# MPLS forwarding for Linux nodes (lab 19).
+lab_mpls_enabled: true
+lab_mpls_modules:
+  - mpls_router
+  - mpls_iptunnel
+lab_mpls_platform_labels: 100000
+
+# Kernel same-page merging, so identical VMs share memory.
+lab_ksm_enabled: true
+
+# Compressed swap in RAM. Skipped if the host already has zram swap or a
+# zram-generator config this role did not write.
+lab_zram_enabled: true
+lab_zram_size_mb: 8192
+
+# Docker CE, installed only where no Docker daemon is present. A Docker that
+# is already there is never upgraded, reconfigured or restarted.
+lab_docker_enabled: true
+
+# libvirt and QEMU for VM nodes. The default NAT network (virbr0, with its own
+# DNS and DHCP) is kept off unless lab_libvirt_default_network is true.
+lab_libvirt_enabled: true
+lab_libvirt_default_network: false
+
+# Users to add to lab_user_groups. Docker group membership is root-equivalent.
+lab_users: []
+lab_user_groups:
+  - docker
+
+lab_tools_enabled: true
+
+# --- Tool versions ------------------------------------------------------------
+# To upgrade a tool, change version, url and both sha256 values together.
+# Checksums come from each project's published checksum file. lab_arch is
+# amd64 or arm64. Give member for a tool that ships as an archive: the path of
+# the binary inside it. version_args is how verify runs the tool (default:
+# version).
+
+lab_tools:
+  - name: kind
+    version: "0.33.0"
+    url: "https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-linux-{{ lab_arch }}"
+    sha256:
+      amd64: aee6151561422756b764a4ae28e7f44cda5af5a9eead3cc9985112b1de8d8e0d
+      arm64: 20022bee6cfcd5086cb7234d218e3454e6090022f2a8f55d1fa7fcf42c3867a2
+  - name: kubectl
+    version: "1.37.2"
+    url: "https://dl.k8s.io/release/v1.37.2/bin/linux/{{ lab_arch }}/kubectl"
+    version_args: version --client
+    sha256:
+      amd64: c04487523e7aa7d1493f7808174c899db93d7a9cf57531420cd76b9bd415f8f4
+      arm64: fcc16f63186659d9722014b7e02d5fdd2d4e669cb8c0ab66365d7d3b8ba03509
+  - name: helm
+    version: "4.3.2"
+    url: "https://get.helm.sh/helm-v4.3.2-linux-{{ lab_arch }}.tar.gz"
+    member: "linux-{{ lab_arch }}/helm"
+    sha256:
+      amd64: d1c0278d46beab79582d7e50f5b3dc206944ba8e577cde618513fd07daa53983
+      arm64: df31cb61680ef728f82c770e5280dd565617bee6b039d37e85c677288be4bbb0
+  - name: cilium
+    version: "0.20.3"
+    url: "https://github.com/cilium/cilium-cli/releases/download/v0.20.3/cilium-linux-{{ lab_arch }}.tar.gz"
+    member: cilium
+    version_args: version --client
+    sha256:
+      amd64: b987ad0d195310d3fc96553aa7bcd41d1e97b64713ecdfee3eb48dd27e1ec7d7
+      arm64: fa1bd66b407ec205e88746fc0b17590a247f255bf71bb9dfb0008b14d158f68d
+  - name: hubble
+    version: "1.20.4"
+    url: "https://github.com/cilium/hubble/releases/download/v1.20.4/hubble-linux-{{ lab_arch }}.tar.gz"
+    member: hubble
+    sha256:
+      amd64: 78ed68bd56d244bf2691ae4ba186d78e87e6814df58573d6de6089d0e5d7ddd8
+      arm64: cccecf20e204c0bcbb2635c5efc9672fea0e33a58d01f04e94324caddb572250
+  - name: containerlab
+    version: "0.83.0"
+    url: "https://github.com/srl-labs/containerlab/releases/download/v0.83.0/containerlab_0.83.0_linux_{{ lab_arch }}.tar.gz"
+    member: containerlab
+    sha256:
+      amd64: 1ee43b8fd5979d8baa205e267480d69177f7461b2d1bf512df144800c08cfe2c
+      arm64: 2ac916c1cfb05192abc8da7d85d79ce794da51b5726b05b56f3d16157f1928f4
+  - name: gnmic
+    version: "0.49.1"
+    url: "https://github.com/openconfig/gnmic/releases/download/v0.49.1/gnmic_0.49.1_Linux_{{ ansible_facts['architecture'] }}.tar.gz"
+    member: gnmic
+    sha256:
+      amd64: 6acb96462f7f211904b1eda5ad419e13306307344e26fe98284f8ffb52d6a02a
+      arm64: 4a041bbba480f64a3df0ac9477d7477d1ad948434e201808c3ff7cd0dca45ad9

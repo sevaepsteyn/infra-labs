@@ -1,0 +1,15 @@
+---
+- name: Read groups on the host
+  ansible.builtin.getent:
+    database: group
+
+# A group that does not exist (Docker not installed, say) is skipped, not created.
+- name: Add lab users to their groups
+  ansible.builtin.user:
+    name: "{{ item.0 }}"
+    groups: "{{ item.1 }}"
+    append: true
+  loop: "{{ lab_users | product(lab_user_groups) | list }}"
+  loop_control:
+    label: "{{ item.0 }}:{{ item.1 }}"
+  when: item.1 in ansible_facts['getent_group']

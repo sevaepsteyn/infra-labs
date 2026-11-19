@@ -1,0 +1,56 @@
+---
+# One tool: download to a versioned cache directory (checksum-verified),
+# unpack if it is an archive, install. The install is a checksum comparison
+# with the cached file, so the binary in lab_bin_dir is always the pinned one.
+
+- name: "Create the cache directory for {{ lab_tool.name }}"
+  ansible.builtin.file:
+    path: "{{ lab_tool_dir }}/unpacked"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: "Check for a cached download of {{ lab_tool.name }}"
+  ansible.builtin.stat:
+    path: "{{ lab_tool_file }}"
+    get_checksum: false
+  register: lab_tool_cached
+
+# Check mode downloads nothing, so the tasks below have nothing to compare.
+- name: "Would install {{ lab_tool.name }} {{ lab_tool.version }}"
+  ansible.builtin.debug:
+    msg: "check mode: would download {{ lab_tool.name }} {{ lab_tool.version }} and install it to {{ lab_tool_dest }}"
+  changed_when: true
+  when:
+    - ansible_check_mode
+    - not lab_tool_cached.stat.exists
+
+- name: "Install {{ lab_tool.name }} {{ lab_tool.version }}"
+  when: not ansible_check_mode or lab_tool_cached.stat.exists
+  block:
+    - name: "Download {{ lab_tool.name }}"
+      ansible.builtin.get_url:
+        url: "{{ lab_tool.url }}"
+        dest: "{{ lab_tool_file }}"
+        checksum: "sha256:{{ lab_tool.sha256[lab_arch] }}"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: "Unpack {{ lab_tool.name }}"
+      ansible.builtin.unarchive:
+        src: "{{ lab_tool_file }}"
+        dest: "{{ lab_tool_dir }}/unpacked"
+        remote_src: true
+        creates: "{{ lab_tool_src }}"
+      when: lab_tool.member is defined
+
+    - name: "Install {{ lab_tool.name }} to {{ lab_bin_dir }}"
+      ansible.builtin.copy:
+        src: "{{ lab_tool_src }}"
+        dest: "{{ lab_tool_dest }}"
+        remote_src: true
+        owner: root
+        group: root
+        mode: "0755"

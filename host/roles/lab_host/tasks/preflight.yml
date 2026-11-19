@@ -1,0 +1,52 @@
+---
+# Read-only. Everything here also runs in check mode.
+
+- name: Check the host is a supported platform
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['os_family'] in ['RedHat', 'Debian']
+      - ansible_facts['architecture'] in ['x86_64', 'aarch64']
+      - ansible_facts['service_mgr'] == 'systemd'
+    fail_msg: >-
+      Unsupported host: {{ ansible_facts['distribution'] }} {{ ansible_facts['architecture'] }}.
+      This role supports RedHat- and Debian-family systemd hosts on x86_64 or aarch64.
+    quiet: true
+
+- name: Load OS-family variables
+  ansible.builtin.include_vars: "{{ ansible_facts['os_family'] }}.yml"
+
+# A Docker that exists at the start of a run is not this run's to change.
+# docker.yml skips it, and verify.yml fails the run if it restarted or lost a
+# container.
+- name: Check for a Docker daemon
+  ansible.builtin.stat:
+    path: "{{ lab_dockerd }}"
+    get_checksum: false
+  register: lab_docker_before
+
+- name: Record when the Docker daemon last started
+  ansible.builtin.command: systemctl show docker.service -p ActiveEnterTimestampMonotonic --value
+  register: lab_docker_start_before
+  changed_when: false
+  check_mode: false
+  when: lab_docker_before.stat.exists
+
+- name: Record running containers
+  ansible.builtin.command: docker ps -q --no-trunc
+  register: lab_containers_before
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  when: lab_docker_before.stat.exists
+
+- name: Check for KVM
+  ansible.builtin.stat:
+    path: /dev/kvm
+  register: lab_kvm
+
+- name: Warn when KVM is missing
+  ansible.builtin.debug:
+    msg: >-
+      /dev/kvm is missing: vrnetlab VM images and libvirt VMs will not run.
+      Enable virtualization in the BIOS or nested virtualization on the hypervisor.
+  when: not lab_kvm.stat.exists

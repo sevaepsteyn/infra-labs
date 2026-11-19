@@ -1,0 +1,43 @@
+---
+# Checked at the start of every run, so a mistyped setting in the inventory
+# fails before anything on the host changes.
+argument_specs:
+  main:
+    short_description: Prepare a host for the infra-labs labs.
+    options:
+      lab_cache_dir: {type: path, default: /var/cache/infra-labs}
+      lab_bin_dir: {type: path, default: /usr/local/bin}
+      lab_snapshot_enabled: {type: bool, default: true}
+      lab_snapshot_dir: {type: path, default: /var/lib/infra-labs}
+      lab_base_packages_enabled: {type: bool, default: true}
+      lab_sysctl_enabled: {type: bool, default: true}
+      lab_sysctl:
+        type: dict
+        description: Sysctl key to minimum integer value.
+      lab_mpls_enabled: {type: bool, default: true}
+      lab_mpls_modules: {type: list, elements: str}
+      lab_mpls_platform_labels: {type: int, default: 100000}
+      lab_ksm_enabled: {type: bool, default: true}
+      lab_zram_enabled: {type: bool, default: true}
+      lab_zram_size_mb: {type: int, default: 8192}
+      lab_docker_enabled: {type: bool, default: true}
+      lab_libvirt_enabled: {type: bool, default: true}
+      lab_libvirt_default_network: {type: bool, default: false}
+      lab_users: {type: list, elements: str, default: []}
+      lab_user_groups: {type: list, elements: str, default: [docker]}
+      lab_tools_enabled: {type: bool, default: true}
+      lab_tools:
+        type: list
+        elements: dict
+        options:
+          name: {type: str, required: true}
+          version: {type: str, required: true}
+          url: {type: str, required: true}
+          member: {type: str}
+          version_args: {type: str}
+          sha256:
+            type: dict
+            required: true
+            options:
+              amd64: {type: str, required: true}
+              arm64: {type: str, required: true}

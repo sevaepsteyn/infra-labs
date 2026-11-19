@@ -1,0 +1,41 @@
+---
+- name: Load MPLS modules at boot
+  ansible.builtin.copy:
+    content: |
+      # {{ lab_managed_marker }}.
+      {% for module in lab_mpls_modules %}
+      {{ module }}
+      {% endfor %}
+    dest: "{{ lab_mpls_modules_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Load MPLS modules now
+  ansible.builtin.command:
+    cmd: "modprobe {{ item }}"
+    creates: "/sys/module/{{ item }}"
+  loop: "{{ lab_mpls_modules }}"
+
+- name: Set the MPLS label space at boot
+  ansible.builtin.copy:
+    content: |
+      # {{ lab_managed_marker }}.
+      net.mpls.platform_labels = {{ lab_mpls_platform_labels }}
+    dest: "{{ lab_mpls_sysctl_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+# The key only exists once mpls_router is loaded, which check mode does not do.
+- name: Read the MPLS label space
+  ansible.builtin.command: sysctl -n net.mpls.platform_labels
+  register: lab_mpls_labels
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Set the MPLS label space now
+  ansible.builtin.command: "sysctl -w net.mpls.platform_labels={{ lab_mpls_platform_labels }}"
+  when: (lab_mpls_labels.stdout | trim) != (lab_mpls_platform_labels | string)
+  changed_when: true

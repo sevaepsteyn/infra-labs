@@ -1,0 +1,32 @@
+---
+lab_base_packages:
+  - iproute
+  - tcpdump
+  - wireshark-cli
+  - ethtool
+  - iperf3
+  - jq
+  - git
+  - tar
+lab_zram_packages:
+  - zram-generator
+lab_docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+lab_docker_repo_distro: "{{ 'rhel' if ansible_facts['distribution'] == 'RedHat' else 'centos' }}"
+# libvirt-daemon-kvm brings the QEMU driver without defining the default NAT network.
+lab_libvirt_packages:
+  - qemu-kvm
+  - libvirt-daemon-kvm
+  - libvirt-client
+  - virt-install
+lab_libvirt_default_network_packages:
+  - libvirt-daemon-config-network
+lab_libvirt_services:
+  - virtqemud.socket
+  - virtnetworkd.socket
+  - virtstoraged.socket
+  - virtnodedevd.socket

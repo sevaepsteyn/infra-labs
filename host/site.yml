@@ -1,0 +1,11 @@
+---
+# Build the lab host. Idempotent: a second run changes nothing.
+#   ansible-playbook site.yml --check --diff    dry run
+#   ansible-playbook site.yml                   apply
+- name: Build the lab host
+  hosts: lab_hosts
+  become: true
+  serial: 1
+  any_errors_fatal: true
+  roles:
+    - lab_host

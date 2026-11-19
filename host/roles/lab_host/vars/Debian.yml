@@ -1,0 +1,27 @@
+---
+lab_base_packages:
+  - iproute2
+  - tcpdump
+  - tshark
+  - ethtool
+  - iperf3
+  - jq
+  - git
+  - tar
+lab_zram_packages:
+  - systemd-zram-generator
+lab_docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+lab_docker_repo_distro: "{{ ansible_facts['distribution'] | lower }}"
+lab_libvirt_packages:
+  - qemu-system-x86
+  - libvirt-daemon-system
+  - libvirt-clients
+  - virtinst
+lab_libvirt_default_network_packages: []
+lab_libvirt_services:
+  - libvirtd

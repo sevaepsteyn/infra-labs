@@ -1,0 +1,25 @@
+---
+# Copy to hosts.yml (git-ignored) and edit. Never commit real host names or
+# addresses: this repo is public.
+all:
+  children:
+    lab_hosts:
+      hosts:
+
+        # A dedicated lab host: the role defaults apply everything in
+        # docs/host-setup.md.
+        labhost:
+          ansible_host: lab.example.net
+          lab_users:
+            - youruser
+
+        # A shared or production host: install the tools and raise the inotify
+        # limits, and leave everything else alone. An existing Docker is never
+        # touched whatever these are set to.
+        # sharedhost:
+        #   ansible_host: shared.example.net
+        #   lab_mpls_enabled: false      # turn on when you reach lab 19
+        #   lab_ksm_enabled: false       # costs CPU on a busy host
+        #   lab_zram_enabled: false      # host already has swap
+        #   lab_libvirt_enabled: false   # turn on for labs 14, 17 and 22
+        #   lab_users: []                # docker group is root-equivalent

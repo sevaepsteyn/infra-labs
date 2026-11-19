@@ -1,0 +1,66 @@
+---
+# The role manages zram only when the config file is its own (it carries the
+# marker) or the host has no zram at all. A config someone else wrote, or zram
+# swap set up some other way, is left alone.
+
+- name: Check for a zram-generator config
+  ansible.builtin.stat:
+    path: "{{ lab_zram_conf_file }}"
+  register: lab_zram_conf_stat
+
+- name: Read the zram-generator config
+  ansible.builtin.slurp:
+    src: "{{ lab_zram_conf_file }}"
+  register: lab_zram_conf_raw
+  when: lab_zram_conf_stat.stat.exists
+
+- name: Read active swap devices
+  ansible.builtin.slurp:
+    src: /proc/swaps
+  register: lab_swaps
+
+- name: Decide whether zram is this role's to manage
+  ansible.builtin.set_fact:
+    lab_zram_managed: >-
+      {{ (lab_managed_marker in (lab_zram_conf_raw.content | b64decode))
+         if lab_zram_conf_stat.stat.exists
+         else ('/dev/zram' not in (lab_swaps.content | b64decode)) }}
+
+- name: Report zram that this role did not set up
+  ansible.builtin.debug:
+    msg: "The host already has zram swap or its own {{ lab_zram_conf_file }}; leaving it as it is."
+  when: not lab_zram_managed
+
+- name: Set up zram swap
+  when: lab_zram_managed
+  block:
+    - name: Install zram-generator
+      ansible.builtin.package:
+        name: "{{ lab_zram_packages }}"
+        state: present
+
+    - name: Write the zram config
+      ansible.builtin.copy:
+        content: |
+          # {{ lab_managed_marker }}.
+          [zram0]
+          zram-size = {{ lab_zram_size_mb }}
+          compression-algorithm = zstd
+        dest: "{{ lab_zram_conf_file }}"
+        owner: root
+        group: root
+        mode: "0644"
+      register: lab_zram_conf
+
+    # Only regenerates units; restarts nothing. A changed size takes effect
+    # at the next boot, because resizing means turning swap off.
+    - name: Reload systemd so the zram unit is generated
+      ansible.builtin.systemd:
+        daemon_reload: true
+      when: lab_zram_conf is changed
+
+    - name: Start zram swap
+      ansible.builtin.systemd:
+        name: "{{ lab_zram_unit }}"
+        state: started
+      when: not ansible_check_mode

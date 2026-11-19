@@ -1,0 +1,29 @@
+---
+- name: Create the download cache
+  ansible.builtin.file:
+    path: "{{ lab_cache_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install each tool
+  ansible.builtin.include_tasks: tool.yml
+  loop: "{{ lab_tools }}"
+  loop_control:
+    loop_var: lab_tool
+    label: "{{ lab_tool.name }} {{ lab_tool.version }}"
+  vars:
+    lab_tool_dir: "{{ lab_cache_dir }}/{{ lab_tool.name }}-{{ lab_tool.version }}"
+    lab_tool_file: "{{ lab_tool_dir }}/{{ lab_tool.url | basename }}"
+    lab_tool_src: "{{ (lab_tool_dir ~ '/unpacked/' ~ lab_tool.member) if lab_tool.member is defined else lab_tool_file }}"
+    lab_tool_dest: "{{ lab_bin_dir }}/{{ lab_tool.name }}"
+
+# Proves each binary is the right build for this machine, not just present.
+- name: Run each tool
+  ansible.builtin.command: "{{ lab_bin_dir }}/{{ item.name }} {{ item.version_args | default('version') }}"
+  loop: "{{ lab_tools }}"
+  loop_control:
+    label: "{{ item.name }}"
+  changed_when: false
+  when: not ansible_check_mode

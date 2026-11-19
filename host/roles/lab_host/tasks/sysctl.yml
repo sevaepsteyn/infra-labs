@@ -1,0 +1,71 @@
+---
+# lab_sysctl holds minimum values. A key below its minimum gets a line in the
+# drop-in and is raised now; a key already at or above it is not touched, so
+# a host tuned higher keeps its own value. Lines written on an earlier run
+# stay in the drop-in, which keeps the raised values across reboots.
+
+- name: Read current sysctl values
+  ansible.builtin.command: "sysctl -n {{ item.key }}"
+  loop: "{{ lab_sysctl | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  register: lab_sysctl_now
+  changed_when: false
+  check_mode: false
+
+- name: Work out which sysctl values are below their minimum
+  ansible.builtin.set_fact:
+    lab_sysctl_raise: >-
+      {%- set out = {} -%}
+      {%- for result in lab_sysctl_now.results if (result.stdout | int) < (result.item.value | int) -%}
+      {%- set _ = out.update({result.item.key: result.item.value}) -%}
+      {%- endfor -%}
+      {{ out }}
+
+- name: Create the sysctl drop-in
+  ansible.builtin.copy:
+    content: |
+      # {{ lab_managed_marker }}.
+    dest: "{{ lab_sysctl_file }}"
+    force: false
+    owner: root
+    group: root
+    mode: "0644"
+  when: lab_sysctl_raise | length > 0
+
+- name: Persist the raised sysctl values
+  ansible.builtin.lineinfile:
+    path: "{{ lab_sysctl_file }}"
+    regexp: "^{{ item.key | regex_escape }}\\s*="
+    line: "{{ item.key }} = {{ item.value }}"
+  loop: "{{ lab_sysctl_raise | dict2items }}"
+  loop_control:
+    label: "{{ item.key }} = {{ item.value }}"
+  # In check mode the drop-in above may not exist yet.
+  when: not ansible_check_mode
+
+- name: Raise the sysctl values now
+  ansible.builtin.command: "sysctl -w {{ item.key }}={{ item.value }}"
+  loop: "{{ lab_sysctl_raise | dict2items }}"
+  loop_control:
+    label: "{{ item.key }} = {{ item.value }}"
+  changed_when: true
+
+- name: Read the sysctl values back
+  ansible.builtin.command: "sysctl -n {{ item.key }}"
+  loop: "{{ lab_sysctl | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  register: lab_sysctl_after
+  changed_when: false
+  check_mode: false
+
+- name: Check sysctl values are at least the minimum
+  ansible.builtin.assert:
+    that: (item.stdout | int) >= (item.item.value | int)
+    fail_msg: "{{ item.item.key }} is {{ item.stdout }}, wanted at least {{ item.item.value }}"
+    quiet: true
+  loop: "{{ lab_sysctl_after.results }}"
+  loop_control:
+    label: "{{ item.item.key }}"
+  when: not ansible_check_mode

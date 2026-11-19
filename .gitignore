@@ -53,3 +53,8 @@ __pycache__/
 .DS_Store
 .vscode/
 .idea/
+
+# Ansible inventory (real host names and addresses)
+host/inventory/hosts.yml
+host/inventory/host_vars/
+host/inventory/group_vars/

@@ -1,0 +1,32 @@
+---
+- name: Install libvirt and QEMU
+  ansible.builtin.package:
+    name: "{{ lab_libvirt_packages + (lab_libvirt_default_network_packages if lab_libvirt_default_network else []) }}"
+    state: present
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+
+- name: Enable and start libvirt
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop: "{{ lab_libvirt_services }}"
+  when: not ansible_check_mode
+
+# The default network starts its own dnsmasq for DNS and DHCP on virbr0.
+# Keep it off unless asked for, so it cannot collide with services already
+# on the host.
+- name: Keep the default libvirt network off
+  ansible.builtin.shell: |
+    set -u
+    changed=0
+    info=$(virsh -c qemu:///system net-info default 2>/dev/null) || exit 0
+    if echo "$info" | grep -Eq '^Active: +yes'; then virsh -c qemu:///system net-destroy default >/dev/null && changed=1; fi
+    if echo "$info" | grep -Eq '^Autostart: +yes'; then virsh -c qemu:///system net-autostart --disable default >/dev/null && changed=1; fi
+    echo "changed=$changed"
+  register: lab_libvirt_net
+  changed_when: "'changed=1' in lab_libvirt_net.stdout"
+  when:
+    - not lab_libvirt_default_network
+    - not ansible_check_mode

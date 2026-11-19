@@ -1,0 +1,11 @@
+---
+galaxy_info:
+  role_name: lab_host
+  description: Prepare a Linux host for the infra-labs Kubernetes and network labs.
+  min_ansible_version: "2.15"
+  platforms:
+    - name: EL
+      versions: ["9"]
+    - name: Ubuntu
+      versions: [noble]
+dependencies: []

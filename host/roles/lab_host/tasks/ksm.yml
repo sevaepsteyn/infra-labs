@@ -1,0 +1,30 @@
+---
+- name: Read the KSM state
+  ansible.builtin.command: "cat {{ lab_ksm_run }}"
+  register: lab_ksm_now
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Report when KSM is unavailable
+  ansible.builtin.debug:
+    msg: "{{ lab_ksm_run }} is missing; this kernel has no KSM. Skipping."
+  when: lab_ksm_now.rc != 0
+
+- name: Turn KSM on
+  when: lab_ksm_now.rc == 0
+  block:
+    - name: Turn KSM on at boot
+      ansible.builtin.copy:
+        content: |
+          # {{ lab_managed_marker }}.
+          w {{ lab_ksm_run }} - - - - 1
+        dest: "{{ lab_ksm_tmpfiles_file }}"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Turn KSM on now
+      ansible.builtin.shell: "echo 1 > {{ lab_ksm_run }}"
+      when: (lab_ksm_now.stdout | trim) != '1'
+      changed_when: true

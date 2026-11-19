@@ -1,0 +1,7 @@
+---
+- name: Install base packages
+  ansible.builtin.package:
+    name: "{{ lab_base_packages }}"
+    state: present
+  environment:
+    DEBIAN_FRONTEND: noninteractive

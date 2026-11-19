@@ -1,0 +1,86 @@
+---
+# Installs Docker CE only where there is no Docker daemon. Once one exists,
+# whoever installed it, this file does nothing: no package changes, no
+# daemon.json, no restart. Upgrading Docker is a decision for the host's
+# owner, not a side effect of this role.
+
+- name: Report an existing Docker install
+  ansible.builtin.debug:
+    msg: "Docker is already installed; leaving it exactly as it is."
+  when: lab_docker_before.stat.exists
+
+- name: Install Docker CE
+  when: not lab_docker_before.stat.exists
+  block:
+    - name: Add the Docker repository (RedHat family)
+      ansible.builtin.get_url:
+        url: "https://download.docker.com/linux/{{ lab_docker_repo_distro }}/docker-ce.repo"
+        dest: /etc/yum.repos.d/docker-ce.repo
+        owner: root
+        group: root
+        mode: "0644"
+      register: lab_docker_repo
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Add the Docker repository (Debian family)
+      when: ansible_facts['os_family'] == 'Debian'
+      block:
+        - name: Create the apt keyring directory
+          ansible.builtin.file:
+            path: /etc/apt/keyrings
+            state: directory
+            mode: "0755"
+
+        - name: Add the Docker signing key
+          ansible.builtin.get_url:
+            url: "https://download.docker.com/linux/{{ lab_docker_repo_distro }}/gpg"
+            dest: /etc/apt/keyrings/docker.asc
+            owner: root
+            group: root
+            mode: "0644"
+
+        - name: Add the Docker apt source
+          ansible.builtin.copy:
+            content: |
+              deb [arch={{ lab_arch }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/{{ lab_docker_repo_distro }} {{ ansible_facts['distribution_release'] }} stable
+            dest: /etc/apt/sources.list.d/docker.list
+            owner: root
+            group: root
+            mode: "0644"
+          register: lab_docker_apt_source
+
+        - name: Refresh the apt cache
+          ansible.builtin.apt:
+            update_cache: true
+          when: lab_docker_apt_source is changed
+
+    # In check mode the repository was not really added, so the packages
+    # cannot be resolved yet; the repository task above already shows the change.
+    - name: Install Docker packages
+      ansible.builtin.package:
+        name: "{{ lab_docker_packages }}"
+        state: present
+      when: not (ansible_check_mode and (lab_docker_repo is changed or lab_docker_apt_source is changed))
+
+    - name: Enable and start Docker
+      ansible.builtin.systemd:
+        name: docker.service
+        enabled: true
+        state: started
+      when: not ansible_check_mode
+
+# Also catches a run that installed the packages and then stopped before
+# starting the service: later runs see a Docker and leave it alone.
+- name: Read the Docker service state
+  ansible.builtin.command: systemctl is-active docker.service
+  register: lab_docker_active
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Check Docker is running
+  ansible.builtin.assert:
+    that: lab_docker_active.stdout == 'active'
+    fail_msg: "docker.service is {{ lab_docker_active.stdout }}, not active. Start it with: systemctl enable --now docker"
+    quiet: true
+  when: not ansible_check_mode or lab_docker_before.stat.exists
