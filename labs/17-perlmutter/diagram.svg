@@ -1,0 +1,90 @@
+<svg xmlns='http://www.w3.org/2000/svg' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' viewBox='0 0 760 524' role='img' aria-label='The high-speed network carries compute, storage and login; management stays separate' font-size='13'>
+    <rect width='100%' height='100%' fill='#ffffff'/>
+    <text x='24' y='32' font-size='15' font-weight='600' fill='#1f2328'>The high-speed network carries compute, storage and login</text>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M220 84H290'/>
+    <path d='M470 84H540'/>
+    </g>
+    <g fill='none' stroke='#0969da' stroke-width='1.5'>
+    <path d='M368 112V168'/>
+    <path d='M376 112V168'/>
+    <path d='M384 112V168'/>
+    <path d='M392 112V168'/>
+    </g>
+    <text x='404' y='136' font-size='11.5' fill='#59636e'>LAG (64-way in production)</text>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M236 196H290'/>
+    <path d='M470 196H524'/>
+    <path d='M56 196H40V244H720V196H704'/>
+    </g>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M146 224V264'/>
+    <path d='M380 224V264'/>
+    <path d='M614 224V264'/>
+    <path d='M176 408L146 320'/>
+    </g>
+    <g>
+    <rect x='40' y='56' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='130' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Global file systems</text>
+    <text x='130' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>NGF stand-in (NFS)</text>
+    </g>
+    <g>
+    <rect x='290' y='56' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Site router</text>
+    <text x='380' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>cEOS, SR Linux or VyOS</text>
+    </g>
+    <g>
+    <rect x='540' y='56' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='630' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Users and WAN</text>
+    <text x='630' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>FRR stand-in</text>
+    </g>
+    <g>
+    <rect x='24' y='144' width='712' height='216' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='720' y='348' text-anchor='end' font-size='11.5' fill='#59636e'>High-speed network: dragonfly stand-in for Slingshot</text>
+    </g>
+    <g>
+    <rect x='56' y='168' width='180' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='146' y='192' text-anchor='middle' font-weight='600' fill='#1f2328'>Group A</text>
+    <text x='146' y='208' text-anchor='middle' font-size='11.5' fill='#59636e'>2 switches, all-to-all</text>
+    </g>
+    <g>
+    <rect x='290' y='168' width='180' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='380' y='192' text-anchor='middle' font-weight='600' fill='#1f2328'>Group B</text>
+    <text x='380' y='208' text-anchor='middle' font-size='11.5' fill='#59636e'>2 switches, all-to-all</text>
+    </g>
+    <g>
+    <rect x='524' y='168' width='180' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='614' y='192' text-anchor='middle' font-weight='600' fill='#1f2328'>Group C</text>
+    <text x='614' y='208' text-anchor='middle' font-size='11.5' fill='#59636e'>2 switches, all-to-all</text>
+    </g>
+    <g>
+    <rect x='56' y='264' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='146' y='288' text-anchor='middle' font-weight='600' fill='#1f2328'>Compute nodes</text>
+    <text x='146' y='304' text-anchor='middle' font-size='11.5' fill='#59636e'>Slurm, routable IPs</text>
+    </g>
+    <g>
+    <rect x='290' y='264' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='288' text-anchor='middle' font-weight='600' fill='#1f2328'>Login nodes</text>
+    <text x='380' y='304' text-anchor='middle' font-size='11.5' fill='#59636e'>Reached over the HSN</text>
+    </g>
+    <g>
+    <rect x='524' y='264' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='614' y='288' text-anchor='middle' font-weight='600' fill='#1f2328'>Scratch storage</text>
+    <text x='614' y='304' text-anchor='middle' font-size='11.5' fill='#59636e'>Lustre stand-in</text>
+    </g>
+    <g>
+    <rect x='24' y='392' width='712' height='108' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='720' y='488' text-anchor='end' font-size='11.5' fill='#59636e'>Management network (SMNet) and system management</text>
+    <path d='M296 436H464' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    </g>
+    <g>
+    <rect x='56' y='408' width='240' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='176' y='432' text-anchor='middle' font-weight='600' fill='#1f2328'>SMNet switch</text>
+    <text x='176' y='448' text-anchor='middle' font-size='11.5' fill='#59636e'>HMN, NMN and CAN VLANs</text>
+    </g>
+    <g>
+    <rect x='464' y='408' width='240' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='584' y='432' text-anchor='middle' font-weight='600' fill='#1f2328'>System management cluster</text>
+    <text x='584' y='448' text-anchor='middle' font-size='11.5' fill='#59636e'>k8s-kind, CSM stand-in</text>
+    </g>
+    </svg>

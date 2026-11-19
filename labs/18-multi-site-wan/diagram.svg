@@ -1,0 +1,58 @@
+<svg xmlns='http://www.w3.org/2000/svg' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' viewBox='0 0 760 304' role='img' aria-label='Two sites share an SR-MPLS core; L3VPNs keep tenants apart' font-size='13'>
+    <rect width='100%' height='100%' fill='#ffffff'/>
+    <text x='24' y='28' font-size='15' font-weight='600' fill='#1f2328'>Two sites share an SR-MPLS core; L3VPNs keep tenants apart</text>
+    <text x='84' y='54' text-anchor='middle' font-size='11.5' fill='#59636e'>Site A</text>
+    <text x='676' y='54' text-anchor='middle' font-size='11.5' fill='#59636e'>Site B</text>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M144 92L168 140'/>
+    <path d='M144 220L168 172'/>
+    <path d='M300 140L324 100'/>
+    <path d='M300 172L324 212'/>
+    <path d='M380 120V192'/>
+    <path d='M436 100L460 140'/>
+    <path d='M436 212L460 172'/>
+    <path d='M592 140L616 92'/>
+    <path d='M592 172L616 220'/>
+    </g>
+    <g>
+    <rect x='24' y='64' width='120' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='84' y='88' text-anchor='middle' font-weight='600' fill='#1f2328'>Tenant 1 CE</text>
+    <text x='84' y='104' text-anchor='middle' font-size='11.5' fill='#59636e'>VRF tenant-1</text>
+    </g>
+    <g>
+    <rect x='24' y='192' width='120' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='84' y='216' text-anchor='middle' font-weight='600' fill='#1f2328'>Tenant 2 CE</text>
+    <text x='84' y='232' text-anchor='middle' font-size='11.5' fill='#59636e'>VRF tenant-2</text>
+    </g>
+    <g>
+    <rect x='168' y='128' width='132' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='234' y='152' text-anchor='middle' font-weight='600' fill='#1f2328'>PE router A</text>
+    <text x='234' y='168' text-anchor='middle' font-size='11.5' fill='#59636e'>vJunos or XRd</text>
+    </g>
+    <g>
+    <rect x='324' y='64' width='112' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='88' text-anchor='middle' font-weight='600' fill='#1f2328'>P router 1</text>
+    <text x='380' y='104' text-anchor='middle' font-size='11.5' fill='#59636e'>SR-MPLS core</text>
+    </g>
+    <g>
+    <rect x='324' y='192' width='112' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='216' text-anchor='middle' font-weight='600' fill='#1f2328'>P router 2</text>
+    <text x='380' y='232' text-anchor='middle' font-size='11.5' fill='#59636e'>SR-MPLS core</text>
+    </g>
+    <g>
+    <rect x='460' y='128' width='132' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='526' y='152' text-anchor='middle' font-weight='600' fill='#1f2328'>PE router B</text>
+    <text x='526' y='168' text-anchor='middle' font-size='11.5' fill='#59636e'>vJunos or XRd</text>
+    </g>
+    <g>
+    <rect x='616' y='64' width='120' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='676' y='88' text-anchor='middle' font-weight='600' fill='#1f2328'>Tenant 1 CE</text>
+    <text x='676' y='104' text-anchor='middle' font-size='11.5' fill='#59636e'>VRF tenant-1</text>
+    </g>
+    <g>
+    <rect x='616' y='192' width='120' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='676' y='216' text-anchor='middle' font-weight='600' fill='#1f2328'>Tenant 2 CE</text>
+    <text x='676' y='232' text-anchor='middle' font-size='11.5' fill='#59636e'>VRF tenant-2</text>
+    </g>
+    <text x='24' y='280' font-size='11.5' fill='#59636e'>Highlighted: tenant 1 VPN. Plain: tenant 2 VPN.</text>
+    </svg>

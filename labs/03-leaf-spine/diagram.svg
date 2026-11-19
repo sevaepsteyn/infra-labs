@@ -1,0 +1,68 @@
+<svg xmlns='http://www.w3.org/2000/svg' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' viewBox='0 0 760 428' role='img' aria-label='Every Kubernetes node peers BGP with both leaves' font-size='13'>
+    <rect width='100%' height='100%' fill='#ffffff'/>
+    <text x='24' y='32' font-size='15' font-weight='600' fill='#1f2328'>Outside traffic enters at the border leaf; every node peers with both leaves</text>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M250 112V168'/>
+    <path d='M470 112V168'/>
+    <path d='M280 112L440 168'/>
+    <path d='M440 112L280 168'/>
+    <path d='M560 84H592'/>
+    <path d='M250 56V44H664V56'/>
+    <path d='M664 112V168'/>
+    <path d='M200 224L170 288'/>
+    <path d='M420 224L230 288'/>
+    <path d='M250 224L350 288'/>
+    <path d='M470 224L410 288'/>
+    <path d='M300 224L540 288'/>
+    <path d='M520 224L600 288'/>
+    </g>
+    <g>
+    <rect x='160' y='56' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='250' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Spine 1</text>
+    <text x='250' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>SR Linux or cEOS</text>
+    </g>
+    <g>
+    <rect x='380' y='56' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='470' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Spine 2</text>
+    <text x='470' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>SR Linux or cEOS</text>
+    </g>
+    <g>
+    <rect x='160' y='168' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='250' y='192' text-anchor='middle' font-weight='600' fill='#1f2328'>Leaf 1</text>
+    <text x='250' y='208' text-anchor='middle' font-size='11.5' fill='#59636e'>eBGP unnumbered</text>
+    </g>
+    <g>
+    <rect x='380' y='168' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='470' y='192' text-anchor='middle' font-weight='600' fill='#1f2328'>Leaf 2</text>
+    <text x='470' y='208' text-anchor='middle' font-size='11.5' fill='#59636e'>eBGP unnumbered</text>
+    </g>
+    <g>
+    <rect x='592' y='56' width='144' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='664' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Border leaf</text>
+    <text x='664' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>Edge to outside</text>
+    </g>
+    <g>
+    <rect x='592' y='168' width='144' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='664' y='192' text-anchor='middle' font-weight='600' fill='#1f2328'>FRR test client</text>
+    <text x='664' y='208' text-anchor='middle' font-size='11.5' fill='#59636e'>Outside user</text>
+    </g>
+    <g>
+    <rect x='40' y='264' width='680' height='140' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='56' y='384' font-size='11.5' fill='#59636e'>kind cluster (containerlab k8s-kind node)</text>
+    </g>
+    <g>
+    <rect x='105' y='288' width='170' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='190' y='312' text-anchor='middle' font-weight='600' fill='#1f2328'>k8s node 1</text>
+    <text x='190' y='328' text-anchor='middle' font-size='11.5' fill='#59636e'>Cilium BGP</text>
+    </g>
+    <g>
+    <rect x='295' y='288' width='170' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='380' y='312' text-anchor='middle' font-weight='600' fill='#1f2328'>k8s node 2</text>
+    <text x='380' y='328' text-anchor='middle' font-size='11.5' fill='#59636e'>Cilium BGP</text>
+    </g>
+    <g>
+    <rect x='485' y='288' width='170' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='570' y='312' text-anchor='middle' font-weight='600' fill='#1f2328'>k8s node 3</text>
+    <text x='570' y='328' text-anchor='middle' font-size='11.5' fill='#59636e'>Cilium BGP</text>
+    </g>
+    </svg>

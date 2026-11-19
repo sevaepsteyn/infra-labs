@@ -1,0 +1,54 @@
+<svg xmlns='http://www.w3.org/2000/svg' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' viewBox='0 0 760 344' role='img' aria-label='Only signed images that pass policy reach the cluster' font-size='13'>
+    <rect width='100%' height='100%' fill='#ffffff'/>
+    <defs>
+    <marker id='sec-arrow' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto-start-reverse'>
+    <path d='M0 0L10 5L0 10z' fill='#8c959f'/>
+    </marker>
+    </defs>
+    <text x='24' y='32' font-size='15' font-weight='600' fill='#1f2328'>Only signed images that pass policy reach the cluster</text>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M188 84H204' marker-end='url(#sec-arrow)'/>
+    <path d='M368 84H384' marker-end='url(#sec-arrow)'/>
+    <path d='M548 84H564' marker-end='url(#sec-arrow)'/>
+    <path d='M646 112V160' marker-end='url(#sec-arrow)'/>
+    <path d='M600 112V136H466V160' marker-end='url(#sec-arrow)'/>
+    <path d='M646 264V216' marker-end='url(#sec-arrow)'/>
+    </g>
+    <text x='656' y='140' font-size='11.5' fill='#59636e'>pass</text>
+    <text x='533' y='128' text-anchor='middle' font-size='11.5' fill='#59636e'>fail</text>
+    <g>
+    <rect x='24' y='56' width='164' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='106' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Git push</text>
+    <text x='106' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>App and manifests</text>
+    </g>
+    <g>
+    <rect x='204' y='56' width='164' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='286' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>CI build</text>
+    <text x='286' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>Build, scan, sign</text>
+    </g>
+    <g>
+    <rect x='384' y='56' width='164' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='466' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Registry</text>
+    <text x='466' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>Local, signed images</text>
+    </g>
+    <g>
+    <rect x='564' y='56' width='164' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='646' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Admission control</text>
+    <text x='646' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>Kyverno policies</text>
+    </g>
+    <g>
+    <rect x='384' y='160' width='164' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='466' y='184' text-anchor='middle' font-weight='600' fill='#1f2328'>Rejected</text>
+    <text x='466' y='200' text-anchor='middle' font-size='11.5' fill='#59636e'>Unsigned or privileged</text>
+    </g>
+    <g>
+    <rect x='564' y='160' width='164' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='646' y='184' text-anchor='middle' font-weight='600' fill='#1f2328'>Pod runs</text>
+    <text x='646' y='200' text-anchor='middle' font-size='11.5' fill='#59636e'>Signed, restricted</text>
+    </g>
+    <g>
+    <rect x='564' y='264' width='164' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='646' y='288' text-anchor='middle' font-weight='600' fill='#1f2328'>Secrets</text>
+    <text x='646' y='304' text-anchor='middle' font-size='11.5' fill='#59636e'>Vault or SOPS</text>
+    </g>
+    </svg>

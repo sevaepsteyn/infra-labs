@@ -1,0 +1,51 @@
+<svg xmlns='http://www.w3.org/2000/svg' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' viewBox='0 0 760 464' role='img' aria-label='The Mac is only a front end; every lab runs on the x86 host' font-size='13'>
+    <rect width='100%' height='100%' fill='#ffffff'/>
+    <text x='24' y='32' font-size='15' font-weight='600' fill='#1f2328'>The Mac is only a front end; every lab runs on the x86 host</text>
+    <g>
+    <rect x='24' y='48' width='240' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='144' y='72' text-anchor='middle' font-weight='600' fill='#1f2328'>Mac</text>
+    <text x='144' y='88' text-anchor='middle' font-size='11.5' fill='#59636e'>VS Code Remote SSH, Wireshark</text>
+    </g>
+    <g>
+    <path d='M144 104V136' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='156' y='124' font-size='11.5' fill='#59636e'>SSH over WireGuard</text>
+    </g>
+    <g>
+    <rect x='24' y='136' width='712' height='304' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='40' y='428' font-size='11.5' fill='#59636e'>x86 host, NVMe</text>
+    </g>
+    <g>
+    <rect x='40' y='152' width='680' height='40' rx='8' fill='#f6f8fa' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='177' text-anchor='middle' font-weight='600' fill='#1f2328'>Ubuntu Server 26.04 LTS on bare metal</text>
+    </g>
+    <g>
+    <rect x='40' y='208' width='328' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='204' y='232' text-anchor='middle' font-weight='600' fill='#1f2328'>Docker CE</text>
+    <text x='204' y='248' text-anchor='middle' font-size='11.5' fill='#59636e'>Runtime for containerlab and kind</text>
+    </g>
+    <g>
+    <rect x='392' y='208' width='328' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='556' y='232' text-anchor='middle' font-weight='600' fill='#1f2328'>KVM and libvirt</text>
+    <text x='556' y='248' text-anchor='middle' font-size='11.5' fill='#59636e'>For vrnetlab VM images and VM nodes</text>
+    </g>
+    <g>
+    <rect x='40' y='280' width='216' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='148' y='304' text-anchor='middle' font-weight='600' fill='#1f2328'>containerlab</text>
+    <text x='148' y='320' text-anchor='middle' font-size='11.5' fill='#59636e'>Topology as code</text>
+    </g>
+    <g>
+    <rect x='272' y='280' width='216' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='304' text-anchor='middle' font-weight='600' fill='#1f2328'>kind</text>
+    <text x='380' y='320' text-anchor='middle' font-size='11.5' fill='#59636e'>Kubernetes nodes</text>
+    </g>
+    <g>
+    <rect x='504' y='280' width='216' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='612' y='304' text-anchor='middle' font-weight='600' fill='#1f2328'>Local registry</text>
+    <text x='612' y='320' text-anchor='middle' font-size='11.5' fill='#59636e'>Vendor images, by version</text>
+    </g>
+    <g>
+    <rect x='40' y='352' width='680' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='376' text-anchor='middle' font-weight='600' fill='#1f2328'>Lab nodes</text>
+    <text x='380' y='392' text-anchor='middle' font-size='11.5' fill='#59636e'>SR Linux, cEOS, FRR, kind nodes and vrnetlab VMs, joined by veth links</text>
+    </g>
+    </svg>

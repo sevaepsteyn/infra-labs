@@ -1,0 +1,47 @@
+<svg xmlns='http://www.w3.org/2000/svg' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' viewBox='0 0 760 392' role='img' aria-label='Batch jobs and services share one cluster' font-size='13'>
+    <rect width='100%' height='100%' fill='#ffffff'/>
+    <text x='24' y='32' font-size='15' font-weight='600' fill='#1f2328'>Batch jobs and services share one cluster</text>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M340 112L240 152'/>
+    <path d='M420 112L520 152'/>
+    <path d='M480 208L168 248'/>
+    <path d='M288 276H312'/>
+    </g>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25' stroke-dasharray='4 4'>
+    <path d='M300 208L648 248'/>
+    </g>
+    <g>
+    <rect x='280' y='56' width='200' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Users</text>
+    <text x='380' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>Browser or CLI</text>
+    </g>
+    <g>
+    <rect x='120' y='152' width='240' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='240' y='176' text-anchor='middle' font-weight='600' fill='#1f2328'>JupyterHub</text>
+    <text x='240' y='192' text-anchor='middle' font-size='11.5' fill='#59636e'>Notebooks as pods</text>
+    </g>
+    <g>
+    <rect x='400' y='152' width='240' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='520' y='176' text-anchor='middle' font-weight='600' fill='#1f2328'>Job API</text>
+    <text x='520' y='192' text-anchor='middle' font-size='11.5' fill='#59636e'>Submits Slurm jobs</text>
+    </g>
+    <g>
+    <rect x='24' y='232' width='712' height='136' rx='8' fill='none' stroke='#8c959f' stroke-width='1' stroke-dasharray='4 4'/>
+    <text x='40' y='352' font-size='11.5' fill='#59636e'>Kubernetes cluster (k8s-kind)</text>
+    </g>
+    <g>
+    <rect x='48' y='248' width='240' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='168' y='272' text-anchor='middle' font-weight='600' fill='#1f2328'>Slinky operator</text>
+    <text x='168' y='288' text-anchor='middle' font-size='11.5' fill='#59636e'>slurmctld in a pod</text>
+    </g>
+    <g>
+    <rect x='312' y='248' width='240' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='432' y='272' text-anchor='middle' font-weight='600' fill='#1f2328'>Slurm compute pods</text>
+    <text x='432' y='288' text-anchor='middle' font-size='11.5' fill='#59636e'>slurmd on each worker</text>
+    </g>
+    <g>
+    <rect x='576' y='248' width='144' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='648' y='272' text-anchor='middle' font-weight='600' fill='#1f2328'>Service pods</text>
+    <text x='648' y='288' text-anchor='middle' font-size='11.5' fill='#59636e'>Hub, API, DB</text>
+    </g>
+    </svg>

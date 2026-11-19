@@ -1,0 +1,55 @@
+# Vendor images and licences (large, not redistributable)
+*.qcow2
+*.vmdk
+*.iso
+*.tar
+*.tar.gz
+*.tar.xz
+*.tgz
+*.lic
+license*.txt
+images/
+
+# containerlab runtime state
+clab-*/
+.*.clab.yml.bak
+*.clab.yml.annotations.json
+
+# Kubernetes and cluster credentials
+kubeconfig
+*.kubeconfig
+*.kubeconfig.yaml
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+
+# Secrets and keys
+.env
+.env.*
+*.pem
+*.key
+*.age
+age.key
+keys.txt
+.vault-token
+*.dec.yaml
+secrets.yaml
+!secrets.enc.yaml
+
+# Ansible
+*.retry
+.vault_pass*
+
+# Python, editors, OS
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,47 @@
+<svg xmlns='http://www.w3.org/2000/svg' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' viewBox='0 0 760 376' role='img' aria-label='Storage replication gets its own network, apart from app traffic' font-size='13'>
+    <rect width='100%' height='100%' fill='#ffffff'/>
+    <text x='24' y='32' font-size='15' font-weight='600' fill='#1f2328'>Storage replication gets its own network, apart from app traffic</text>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M180 112L120 184'/>
+    <path d='M220 112L360 184'/>
+    <path d='M260 112L600 184'/>
+    <path d='M140 240L260 296'/>
+    <path d='M380 240V296'/>
+    <path d='M620 240L500 296'/>
+    </g>
+    <g fill='none' stroke='#0969da' stroke-width='1.5'>
+    <path d='M500 112L160 184'/>
+    <path d='M540 112L400 184'/>
+    <path d='M580 112L640 184'/>
+    </g>
+    <g>
+    <rect x='100' y='56' width='240' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='220' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Front-end leaf</text>
+    <text x='220' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>Pod and service traffic</text>
+    </g>
+    <g>
+    <rect x='420' y='56' width='240' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='540' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Storage leaf</text>
+    <text x='540' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>Ceph replication network</text>
+    </g>
+    <g>
+    <rect x='40' y='184' width='200' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='140' y='208' text-anchor='middle' font-weight='600' fill='#1f2328'>Node 1</text>
+    <text x='140' y='224' text-anchor='middle' font-size='11.5' fill='#59636e'>Ceph OSD and app pods</text>
+    </g>
+    <g>
+    <rect x='280' y='184' width='200' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='208' text-anchor='middle' font-weight='600' fill='#1f2328'>Node 2</text>
+    <text x='380' y='224' text-anchor='middle' font-size='11.5' fill='#59636e'>Ceph OSD and app pods</text>
+    </g>
+    <g>
+    <rect x='520' y='184' width='200' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='620' y='208' text-anchor='middle' font-weight='600' fill='#1f2328'>Node 3</text>
+    <text x='620' y='224' text-anchor='middle' font-size='11.5' fill='#59636e'>Ceph OSD and app pods</text>
+    </g>
+    <g>
+    <rect x='140' y='296' width='480' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='380' y='320' text-anchor='middle' font-weight='600' fill='#1f2328'>Ceph cluster (Rook)</text>
+    <text x='380' y='336' text-anchor='middle' font-size='11.5' fill='#59636e'>Rook operator, 3 OSDs, CSI volumes for pods</text>
+    </g>
+    </svg>

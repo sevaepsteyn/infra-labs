@@ -1,0 +1,46 @@
+<svg xmlns='http://www.w3.org/2000/svg' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' viewBox='0 0 760 312' role='img' aria-label='Switch telemetry, flows and cluster metrics land in one Prometheus' font-size='13'>
+    <rect width='100%' height='100%' fill='#ffffff'/>
+    <defs>
+    <marker id='mon-arrow' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto-start-reverse'>
+    <path d='M0 0L10 5L0 10z' fill='#8c959f'/>
+    </marker>
+    </defs>
+    <text x='24' y='32' font-size='15' font-weight='600' fill='#1f2328'>Switch telemetry, flows and cluster metrics land in one place</text>
+    <g fill='none' stroke='#8c959f' stroke-width='1.25'>
+    <path d='M260 84H320' marker-end='url(#mon-arrow)'/>
+    <path d='M410 112V144' marker-end='url(#mon-arrow)'/>
+    <path d='M260 172H320' marker-end='url(#mon-arrow)'/>
+    <path d='M260 260H290V188H320' marker-end='url(#mon-arrow)'/>
+    <path d='M500 172H560' marker-end='url(#mon-arrow)'/>
+    </g>
+    <g>
+    <rect x='40' y='56' width='220' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='150' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>Switches</text>
+    <text x='150' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>gNMI streaming telemetry</text>
+    </g>
+    <g>
+    <rect x='40' y='144' width='220' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='150' y='168' text-anchor='middle' font-weight='600' fill='#1f2328'>Hubble</text>
+    <text x='150' y='184' text-anchor='middle' font-size='11.5' fill='#59636e'>Flow logs and metrics</text>
+    </g>
+    <g>
+    <rect x='40' y='232' width='220' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='150' y='256' text-anchor='middle' font-weight='600' fill='#1f2328'>Kubernetes</text>
+    <text x='150' y='272' text-anchor='middle' font-size='11.5' fill='#59636e'>kube-state-metrics, kubelet</text>
+    </g>
+    <g>
+    <rect x='320' y='56' width='180' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='410' y='80' text-anchor='middle' font-weight='600' fill='#1f2328'>gnmic</text>
+    <text x='410' y='96' text-anchor='middle' font-size='11.5' fill='#59636e'>Turns gNMI into metrics</text>
+    </g>
+    <g>
+    <rect x='320' y='144' width='180' height='56' rx='8' fill='#0969da' fill-opacity='0.12' stroke='#0969da' stroke-width='2'/>
+    <text x='410' y='168' text-anchor='middle' font-weight='600' fill='#1f2328'>Prometheus</text>
+    <text x='410' y='184' text-anchor='middle' font-size='11.5' fill='#59636e'>Stores everything</text>
+    </g>
+    <g>
+    <rect x='560' y='144' width='176' height='56' rx='8' fill='none' stroke='#8c959f' stroke-width='1.25'/>
+    <text x='648' y='168' text-anchor='middle' font-weight='600' fill='#1f2328'>Grafana and alerts</text>
+    <text x='648' y='184' text-anchor='middle' font-size='11.5' fill='#59636e'>Dashboards and SLOs</text>
+    </g>
+    </svg>
