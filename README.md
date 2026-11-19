@@ -73,7 +73,7 @@ Ordered simplest first. Each lab lists its fit and rough RAM, then a design diag
 | Path | What it holds |
 | --- | --- |
 | `docs/` | Host setup, image sourcing, alternatives and published labs, sources |
-| `host/` | Ansible playbook and VM definition that build the lab host |
+| `host/` | Ansible playbook that builds the lab host |
 | `shared/` | kind configs and Cilium Helm values reused across labs |
 | `labs/NN-name/` | One folder per lab: `README.md` (the spec), `NOTES.md` (the log), `diagram.svg`, topology, configs and manifests |
 
