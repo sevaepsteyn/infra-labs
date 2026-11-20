@@ -32,3 +32,11 @@ This lab reproduces the network pattern NERSC publishes for Perlmutter, which Do
 3. Put storage in its own VRF on the fabric and confirm compute-to-storage traffic never crosses the services network.
 4. Deploy an ingress and a sample science gateway in the kind cluster; announce its IP with Cilium BGP and reach it from the WAN peer.
 5. Push data from the WAN into the DTN and storage, then fail a border router and watch the path move.
+
+**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab20` (see [verifying a lab](../../docs/verify.md)).
+
+1. `srl spine1 "show network-instance default protocols bgp neighbor"` shows every leaf and border session `established`, and `srl leaf1 "show network-instance default route-table ipv4-unicast prefix 0.0.0.0/0"` shows a default route with a next hop toward each spine.
+2. `frr wan "show ip route $COMPUTE1_IP/32"` shows the node's /32, and `on compute1 ping -c 3 $STORAGE1_IP` and `on compute1 ping -c 3 $GW_IP` both succeed.
+3. `on compute1 traceroute -n $STORAGE1_IP` never lists the services leaf, and `srl leaf-svc "show network-instance default route-table ipv4-unicast prefix $STORAGE_PREFIX"` shows no route.
+4. `frr wan "show ip route $GW_IP/32"` shows the announced address, and `on wan curl -s -o /dev/null -w '%{http_code}\n' http://$GW_IP` prints `200`.
+5. `on wan iperf3 -c $DTN_IP -t 60` keeps running when `docker stop clab-lab20-border1` is issued partway through, and `frr wan "show bgp summary"` then shows one session down and the routes still present through the other border.

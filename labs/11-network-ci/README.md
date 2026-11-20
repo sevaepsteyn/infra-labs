@@ -16,6 +16,13 @@ Fit: both · 10–14 GB · uses lab 3's configs. Safe change across a large flee
 3. Open a pull request that breaks a BGP peer and confirm the check fails and reports on the PR.
 4. Add a rollout step that runs only after merge.
 
+**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab03` (see [verifying a lab](../../docs/verify.md)). Run the `gh` checks in the private mirror.
+
+1. `gh api 'repos/{owner}/{repo}/actions/runners' --jq '.runners[] | "\(.name) \(.status)"'` shows the runner `online`, and `gh repo view --json visibility -q .visibility` prints `PRIVATE`.
+2. `pytest -q` passes against a deployed lab, and `gh run list --limit 1 --json conclusion -q '.[0].conclusion'` prints `success`.
+3. `gh pr checks <number>` on the breaking pull request shows the BGP check failed, and the PR page shows which session.
+4. `gh run list --workflow rollout.yml --json event,headBranch,conclusion --limit 5` shows the rollout ran only for pushes to `main`, never for a pull request.
+
 **Extend:** upgrade Cilium by one minor version through the same pipeline, rolling it out node by node while lab 9's dashboards watch for drops.
 
 **Published labs:** Arista Test Drive's automation workshops include [CI/CD Basics](https://labguides.testdrive.arista.com/2026.2/automation/workshops_overview/) with GitHub Actions, and [network test automation](https://github.com/aristanetworks/ci-workshops-avd) with ANTA for checks before and after a change. **Differs:** they run against Arista's hosted lab, one long-lived fabric. This lab builds a throwaway containerlab topology for every pull request and tests it with Batfish, pytest, Nornir and gnmic, as ESnet's ROVER does, so a bad change never touches a shared fabric. On cEOS, ANTA can replace part of the pytest suite.

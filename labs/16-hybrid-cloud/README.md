@@ -16,3 +16,11 @@ Fit: AI · 4–6 GB locally plus a small cloud account. Anthropic's postings ask
 3. Drop one tunnel and time failover; make one tunnel preferred with local preference or AS-path prepending.
 4. Find the tunnel MTU, fix TCP MSS clamping, and confirm large transfers work.
 5. `terraform destroy` at the end of each session.
+
+**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab16` (see [verifying a lab](../../docs/verify.md)). The `edge` node is VyOS, which answers `frr` commands.
+
+1. `terraform output` prints the tunnel endpoints, and `frr edge "show bgp summary"` shows both tunnel sessions `Established`.
+2. `frr edge "show bgp ipv4 unicast neighbors $PEER1 advertised-routes"` lists only the service prefix, and the `received-routes` form (or `routes`) lists only the VPC prefix.
+3. `frr edge "show bgp ipv4 unicast $VPC_PREFIX"` marks the preferred tunnel's path as best. `on client ping -i 0.2 -c 300 $CLOUD_VM_IP` across a tunnel drop gives the failover time, recorded in `NOTES.md`.
+4. `on client ping -M do -s $SIZE -c 2 $CLOUD_VM_IP` succeeds at the tunnel MTU minus 28 and fails one byte higher. A 100 MB `curl` download through the tunnel completes.
+5. `terraform state list | wc -l` prints `0`, and the provider's console shows no gateway or instance left.

@@ -30,4 +30,12 @@ This lab copies the two-fabric layout of a GPU training cluster: a routed front 
 4. Fail a rail switch or one node's rail link and confirm traffic stays on the surviving rail while the front end is untouched.
 5. Cordon and drain a node, watch its BGP routes withdraw, then roll a switch config change through git and check for drift.
 
+**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab21` (see [verifying a lab](../../docs/verify.md)).
+
+1. `srl fe-leaf1 "show network-instance default protocols bgp neighbor"` shows the front-end sessions `established`, and `srl rail0 "show network-instance default route-table ipv4-unicast prefix $RAIL1_SUBNET"` shows rail 1's subnet reached through the back-end spine.
+2. `kubectl get network-attachment-definitions` lists one per rail, `kubectl exec t1 -- ip -br addr` shows `net1` and `net2` with an address in each rail's subnet, and `kubectl exec t1 -- iperf3 -c $T2_RAIL0_IP -t 5` completes for every pair of pods.
+3. `srl rail0 "info qos"` shows the PFC and ECN settings and matches the file in git. `curl -s localhost:9090/api/v1/rules | jq -r '.data.groups[].rules[].name'` lists the interface error and drop alerts.
+4. With rail 0 stopped, `kubectl exec t1 -- iperf3 -c $T2_RAIL1_IP -t 10` still completes, the rail 0 address does not answer, and `on client curl -s -o /dev/null -w '%{http_code}\n' http://$SVC_IP` still prints `200`.
+5. `kubectl get nodes` shows the node `SchedulingDisabled`, and the service route on `fe-leaf1` no longer lists it as a next hop. After the switch change, `argocd app list` shows every app `Synced` and the pipeline's drift check reports none.
+
 **Published labs:** [NVIDIA Air](https://www.nvidia.com/en-us/networking/network-simulation), now DSX Air, builds free cloud digital twins of AI fabrics: Spectrum-X switches on Cumulus Linux or SONiC, BlueField DPUs and x86 servers ([Spectro Cloud walkthrough](https://www.spectrocloud.com/blog/how-to-simulate-multi-tenant-ai-infrastructure)). NVIDIA's [Spectrum-X administration course](https://academy.nvidia.com/en/course/spectrumx-public-training/?cm=92500) runs its RoCE, congestion-control and NetQ exercises there. **Differs:** Air models NVIDIA's own stack, with its real configs. This lab is vendor-neutral and adds the Kubernetes side, Multus rail attachments and a GitOps ops stack, which Air doesn't teach. Use Air to see a real Spectrum-X configuration, and this lab for how the cluster consumes the fabric.

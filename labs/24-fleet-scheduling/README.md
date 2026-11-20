@@ -20,4 +20,12 @@ The full topology plus a second cluster needs about 28 GB. To stay within 16–2
 4. Fill the cluster with small jobs, then submit a large high-priority job and watch preemption.
 5. Join a second cluster with Cluster Mesh and use MultiKueue to send jobs to whichever cluster has room.
 
+**Verify:** one check per exercise, same numbers (see [verifying a lab](../../docs/verify.md)). The second cluster's context is `kind-c2`.
+
+1. `kubectl get workloads` shows the job's workload not admitted while quota is short, and `kubectl get pods` shows none of its four pods. Once quota is free, all four reach `Running` together.
+2. `kubectl get topologies.kueue.x-k8s.io` lists the Topology, and `kubectl get pods -o wide` set against `kubectl get nodes -L block` shows every pod of a required job in one block. With `preferred` and one block full, the job runs across both.
+3. `kubectl get pods -w` after the worker is killed shows the job's pods recreated and `Running` again. `NOTES.md` has the time from the kill to that point.
+4. `kubectl get events -A --field-selector reason=Preempted` lists the small jobs' workloads, and the high-priority job's pods are all `Running`.
+5. `kubectl get multikueueclusters` shows the worker cluster connected, and with the first cluster full `kubectl --context kind-c2 get pods` shows the new job's pods running there.
+
 **Published labs:** Kueue's [MultiKueue setup guide](https://kueue.sigs.k8s.io/docs/tasks/manage/setup_multikueue) wires a manager and a worker cluster, with follow-on guides for [JobSet](https://kueue.sigs.k8s.io/docs/tasks/run/multikueue/jobsets/) and MPIJob. Armada's [quickstart](https://armadaproject.io/getting-started) brings up G-Research's multi-cluster batch scheduler on kind with `make kind-all` in the armada-operator repo. **Differs:** they set up the scheduler alone. This lab adds block and rail node labels, preemption and failure recovery on lab 21's topology, with Cluster Mesh between clusters, because placement against the network is the part an AI lab cares about. Armada's quickstart is the starting point for comparing its queueing with MultiKueue.

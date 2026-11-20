@@ -37,3 +37,11 @@ The NFS stand-ins use NFS-Ganesha, a userspace server. The kernel NFS server in 
 3. Give compute and login nodes routable IPs; confirm they reach the global file systems and the WAN without NAT.
 4. Put HMN, NMN and CAN in separate VLANs or VRFs on the SMNet switch; run DNS and monitoring in the kind cluster on the NMN and expose an API gateway only on the CAN.
 5. Run a small Slurm job across the compute nodes, with iperf3 between them as stand-in MPI traffic, then fail a global link and watch it reroute through the third group.
+
+**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab18` (see [verifying a lab](../../docs/verify.md)).
+
+1. `srl hsn1 "show network-instance default protocols bgp neighbor"` (or the OSPF equivalent) shows every neighbor up, and `on compute1 traceroute -n $COMPUTE3_IP` to a node in another group crosses two switches, not three.
+2. `srl hsn1 "show interface lag1"` shows the LAG up with four members. With members failed one at a time, `on login1 iperf3 -c $NGF_IP -t 10` keeps running at a lower rate until the last member goes.
+3. While `on compute1 ping $WAN_IP` runs, `cap wan -i eth1 icmp -c 3` shows the compute node's own address as the source, and `on compute1 ping -c 3 $NGF_IP` succeeds.
+4. `on admin curl -s -m 3 -o /dev/null -w '%{http_code}\n' http://$API_CAN_IP` prints `200` from the CAN, and the same request from `compute1` times out. `kubectl -n kube-system get pods` shows DNS running on the NMN.
+5. `on compute1 srun -N 4 hostname` prints four node names. With a global link failed, a running `iperf3` between groups continues, and the traceroute from check 1 now crosses three switches.

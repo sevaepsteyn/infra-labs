@@ -8,7 +8,8 @@ Each lab has what to build, exercises and, where one exists, the closest publish
 
 1. Build the host: [docs/host-setup.md](docs/host-setup.md).
 2. Pick a short path below.
-3. Work through each lab's README, and keep a dated log in its `NOTES.md`.
+3. Work through each lab's README, and keep a dated log in its `NOTES.md`. Lab 0 is written out in full, with every command and file; the other labs are specs that say what to build and leave the building to you.
+4. Confirm each exercise with the lab's **Verify** list; [docs/verify.md](docs/verify.md) explains the names and helper commands the checks use.
 
 ## Suggested path
 
@@ -38,7 +39,7 @@ Dependencies outside the core: lab 5 needs 3, lab 8 needs 6 and 7 (their configu
 
 ## Labs
 
-Ordered simplest first. Each lab lists its fit and rough RAM, then a design diagram, what to build, and exercises.
+Ordered simplest first. Each lab lists its fit and rough RAM, then a design diagram, what to build, exercises, and a check for each exercise.
 
 | Lab | Title | Fit | RAM |
 | --- | --- | --- | --- |
@@ -72,9 +73,9 @@ Ordered simplest first. Each lab lists its fit and rough RAM, then a design diag
 
 | Path | What it holds |
 | --- | --- |
-| `docs/` | Host setup, image sourcing, alternatives and published labs, sources |
+| `docs/` | Host setup, image sourcing, verifying a lab, alternatives and published labs, sources |
 | `host/` | Ansible playbook that builds the lab host |
-| `shared/` | kind configs and Cilium Helm values reused across labs |
+| `shared/` | kind configs and Cilium Helm values reused across labs, and `verify.sh`, the helpers the checks use |
 | `labs/NN-name/` | One folder per lab: `README.md` (the spec), `NOTES.md` (the log), `diagram.svg`, topology, configs and manifests |
 
 Diagrams are hand-written SVG and are edited as text. For exact wiring, generate a graph from the topology file with `containerlab graph`.

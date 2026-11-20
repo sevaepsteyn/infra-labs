@@ -16,3 +16,11 @@ Fit: AI, useful for both · about 6 GB · kind only. Anthropic's cluster infrast
 3. Give a team a namespace-scoped role and prove it can't read another namespace's secrets.
 4. Deliver a database password from Vault or SOPS without it ever sitting in git in plain text.
 5. Run kube-bench against the cluster and fix the top findings.
+
+**Verify:** one check per exercise, same numbers (see [verifying a lab](../../docs/verify.md)).
+
+1. `kubectl -n team-a run priv --image=busybox --privileged -- sleep 60` is refused with a message that it violates PodSecurity `restricted`.
+2. `cosign verify` on the signed image succeeds with the key or identity you signed with. `kubectl -n team-a run unsigned --image=$REGISTRY/app:unsigned` is refused by the Kyverno policy, and the signed image is admitted.
+3. `kubectl auth can-i get secrets -n team-b --as=system:serviceaccount:team-a:dev` prints `no`, and the same command with `-n team-a` prints what the role allows.
+4. `kubectl -n team-a get secret db -o jsonpath='{.data.password}' | base64 -d` prints the password, and `git log -p --all -S"$DB_PASSWORD" --oneline` prints nothing.
+5. `kubectl logs job/kube-bench | grep -A4 '== Summary total'` shows fewer `FAIL` checks than the first run recorded in `NOTES.md`.

@@ -16,4 +16,12 @@ Fit: AI · 16–20 GB · builds on labs 3 and 6. Large operators split work acro
 4. Add delay between regions with `tc netem` and measure the effect on cross-region calls.
 5. Apply a Cilium network policy that lets only cluster 1's frontend call the global api service, and confirm cluster 2's pods are blocked in both clusters.
 
+**Verify:** one check per exercise, same numbers (see [verifying a lab](../../docs/verify.md)). Contexts are `kind-c1` and `kind-c2`.
+
+1. `kubectl --context kind-c1 get ciliumnodes -o jsonpath='{.items[*].spec.ipam.podCIDRs}'` and the same for `kind-c2` show ranges that don't overlap, and `cilium clustermesh status --context kind-c1 --wait` shows one connected cluster.
+2. `kubectl --context kind-c1 -n demo get svc api -o jsonpath='{.metadata.annotations}'` shows `service.cilium.io/global` set to `true`. Twenty requests from a pod in c1, counted with `sort | uniq -c`, are answered by backends in both clusters.
+3. With `service.cilium.io/affinity` set to `local`, the same twenty requests are all answered in c1. After `kubectl --context kind-c1 -n demo scale deploy/api --replicas=0`, they are all answered in c2.
+4. `sudo containerlab tools netem show -n` on the WAN node shows the delay. `curl -s -o /dev/null -w '%{time_total}\n' http://api` from a c1 pod is higher by about the added round trip when only c2 has backends. `NOTES.md` has both timings.
+5. From c1's frontend the request prints `200`. From any pod in c2 it times out, whichever cluster's backend would have answered, and `hubble observe --verdict DROPPED --last 5` in each cluster shows the drops.
+
 **Published labs:** Isovalent's free [Cilium Cluster Mesh](https://isovalent.com/labs/cilium-cluster-mesh) lab is nearly this lab: kind clusters, meshing, global services, opting a service out, service affinity and network policy across clusters, with an exam and a [badge](https://www.credly.com/org/isovalent/badge/cilium-cluster-mesh). **Differs:** this lab adds the network between the clusters, either lab 3's fabric or a VyOS WAN with `tc netem` delay, so failover and cross-region latency can be measured, and builds both clusters with Terraform. Do their lab first; exercise 5 here repeats its cross-cluster policy step over a real WAN.

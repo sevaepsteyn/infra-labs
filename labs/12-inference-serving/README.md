@@ -15,6 +15,13 @@ Fit: AI · about 12 GB · lab 3's fabric is optional. Serving traffic is a large
 3. Load-test and watch the autoscaler add replicas.
 4. Kill a model server mid-test and check error rates at the gateway.
 
+**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab03` (see [verifying a lab](../../docs/verify.md)). Without lab 3's fabric, run the client commands from any pod in place of `on client`.
+
+1. `kubectl get gateway,httproute,inferencepool -A` shows the Gateway `Programmed` and the route `Accepted`, and `on client curl -s -o /dev/null -w '%{http_code}\n' http://$GW_IP/v1/models` prints `200`.
+2. `kubectl get httproute llm -o jsonpath='{.spec.rules[0].backendRefs[*].weight}'` prints the weights in git. Send 200 requests and count them per server with `kubectl logs`: the canary's share is close to its weight, and moves when the weight does.
+3. `kubectl get hpa -w` during the load test shows replicas rise above the minimum, then fall after it ends.
+4. The load tool's report for the run with a server killed shows the non-2xx count. `NOTES.md` has that count and how long errors lasted.
+
 **Extend:** add ExternalDNS to publish the gateway's name and cert-manager to issue its TLS certificate automatically.
 
 **Published labs:** the Inference Extension's own [getting-started guide](https://gateway-api-inference-extension.sigs.k8s.io/guides/) runs on kind (with an extra step for LoadBalancer services) and offers a vLLM simulator that needs no GPU. **Differs:** the guide's gateway providers are GKE, Istio, agentgateway and NGINX Gateway Fabric, not Envoy Gateway, so the build uses one of those. Its CPU vLLM option wants 9.5 GB and 12 CPUs per replica, so the build uses the simulator for routing and llama.cpp only for the load test. This lab adds a canary, autoscaling and a BGP-announced gateway on lab 3's fabric, because serving traffic has to leave the cluster.
