@@ -1,0 +1,9 @@
+# Exercise 5: exercise 4 plus requests, a memory limit and probes on web.
+# This is the lab's finished state.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: demo
+resources:
+  - ../04-database
+patches:
+  - path: web-patch.yaml

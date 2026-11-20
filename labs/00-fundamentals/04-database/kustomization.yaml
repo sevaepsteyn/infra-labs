@@ -1,0 +1,10 @@
+# Exercise 4: exercise 3 plus Redis as a StatefulSet with its own volume.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: demo
+resources:
+  - ../03-config
+  - db-service.yaml
+  - db-statefulset.yaml
+patches:
+  - path: web-patch.yaml

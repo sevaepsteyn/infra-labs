@@ -1,0 +1,9 @@
+# Exercise 6: exercise 5 with web pinned to nodes labelled role=web and
+# allowed onto nodes tainted dedicated=web.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: demo
+resources:
+  - ../05-probes
+patches:
+  - path: web-patch.yaml

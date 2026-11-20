@@ -1,0 +1,5 @@
+# Exercise 7: a namespace, a ServiceAccount, and a Role that can only read pods.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - rbac.yaml

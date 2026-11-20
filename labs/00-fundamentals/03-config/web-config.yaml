@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+data:
+  # Read by the app as an environment variable.
+  GREETING: Hello from lab 0
+  # Mounted as the file /config/message.
+  message: Change me without a restart

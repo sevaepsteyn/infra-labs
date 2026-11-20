@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: d
+  namespace: broken
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop
+  template:
+    metadata:
+      labels:
+        app: shop
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.27-alpine
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: d
+  namespace: broken
+spec:
+  selector:
+    app: store
+  ports:
+    - port: 80

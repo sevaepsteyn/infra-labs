@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  template:
+    spec:
+      containers:
+        - name: web
+          env:
+            - name: GREETING
+              valueFrom:
+                configMapKeyRef:
+                  name: web-config
+                  key: GREETING
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: password
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      volumes:
+        - name: config
+          configMap:
+            name: web-config
+            items:
+              - key: message
+                path: message

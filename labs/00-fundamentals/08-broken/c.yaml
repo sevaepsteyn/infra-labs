@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c
+  namespace: broken
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: c
+  template:
+    metadata:
+      labels:
+        app: c
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.27-alpine
+          resources:
+            requests:
+              memory: 512Gi

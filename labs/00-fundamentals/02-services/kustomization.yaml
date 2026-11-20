@@ -1,0 +1,8 @@
+# Exercise 2: exercise 1 plus a ClusterIP and a NodePort Service.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: demo
+resources:
+  - ../01-deployment
+  - web-service.yaml
+  - web-nodeport.yaml

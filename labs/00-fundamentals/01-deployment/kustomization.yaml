@@ -1,0 +1,14 @@
+# Exercise 1: the namespace and the web Deployment.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: demo
+resources:
+  - namespace.yaml
+  - web-deployment.yaml
+# The app's code reaches the pod as a ConfigMap, so no image has to be built.
+# Kustomize adds a hash of the content to the name, so a code change rolls
+# the Deployment.
+configMapGenerator:
+  - name: web-code
+    files:
+      - app.py

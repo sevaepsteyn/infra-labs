@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  template:
+    spec:
+      nodeSelector:
+        role: web
+      tolerations:
+        - key: dedicated
+          operator: Equal
+          value: web
+          effect: NoSchedule

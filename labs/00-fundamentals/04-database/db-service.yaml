@@ -1,0 +1,12 @@
+# Headless: gives each StatefulSet pod a stable DNS name (db-0.db).
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  clusterIP: None
+  selector:
+    app: db
+  ports:
+    - name: redis
+      port: 6379
