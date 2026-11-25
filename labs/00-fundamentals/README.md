@@ -14,18 +14,20 @@ This lab is written out in full: every command is here, and every file the comma
 
 | Path | What it holds |
 | --- | --- |
-| `kind.yaml` | The cluster: one control plane and two workers |
-| `metrics-server/` | metrics-server, with the one flag kind needs |
-| `01-deployment/` to `06-scheduling/` | One Kustomize folder per exercise. Each includes the one before it and adds or patches something, so `kubectl apply -k` on a folder gives the state for that exercise |
-| `01-deployment/app.py` | The web app: a page with a visit counter, about 100 lines of Python with no dependencies |
-| `07-rbac/` | A namespace, a ServiceAccount and a Role |
-| `08-broken/` | Four workloads, each with one fault to find |
+| [`kind.yaml`](kind.yaml) | The cluster: one control plane and two workers |
+| [`metrics-server/`](metrics-server/) | metrics-server, with the one flag kind needs |
+| [`01-deployment/`](01-deployment/) to [`06-scheduling/`](06-scheduling/) | One Kustomize folder per exercise. Each includes the one before it and adds or patches something, so `kubectl apply -k` on a folder gives the state for that exercise |
+| [`01-deployment/app.py`](01-deployment/app.py) | The web app: a page with a visit counter, about 100 lines of Python with no dependencies |
+| [`07-rbac/`](07-rbac/) | A namespace, a ServiceAccount and a Role |
+| [`08-broken/`](08-broken/) | Four workloads, each with one fault to find |
 
-The app reaches its pods as a ConfigMap mounted over a stock `python` image, so there is no image to build. Read `01-deployment/kustomization.yaml` and `web-deployment.yaml` before you start; they are short.
+The app reaches its pods as a ConfigMap mounted over a stock `python` image, so there is no image to build. Read [`01-deployment/kustomization.yaml`](01-deployment/kustomization.yaml) and [`web-deployment.yaml`](01-deployment/web-deployment.yaml) before you start; they are short.
 
 ## Before you start
 
 Run everything from this folder.
+
+Files: [kind.yaml](kind.yaml) · [metrics-server/kustomization.yaml](metrics-server/kustomization.yaml)
 
 ```sh
 cd labs/00-fundamentals
@@ -50,6 +52,8 @@ kubectl delete pod hello
 ```
 
 Now run the app as a Deployment, which keeps a set number of pods running.
+
+Files: [01-deployment/kustomization.yaml](01-deployment/kustomization.yaml) · [01-deployment/namespace.yaml](01-deployment/namespace.yaml) · [01-deployment/web-deployment.yaml](01-deployment/web-deployment.yaml) · [01-deployment/app.py](01-deployment/app.py)
 
 ```sh
 kubectl apply -k 01-deployment
@@ -81,6 +85,8 @@ kubectl -n demo rollout history deploy/web
 
 Add a ClusterIP Service and a NodePort Service, and a pod to test from.
 
+Files: [02-services/kustomization.yaml](02-services/kustomization.yaml) · [02-services/web-service.yaml](02-services/web-service.yaml) · [02-services/web-nodeport.yaml](02-services/web-nodeport.yaml)
+
 ```sh
 kubectl apply -k 02-services
 kubectl -n demo run client --image=busybox:1.36 --restart=Never -- sleep 1d
@@ -107,6 +113,8 @@ docker exec lab00-control-plane curl -s localhost:30080
 ## 3. ConfigMap and Secret
 
 The ConfigMap reaches the app two ways: one key as an environment variable, another as a file. The Secret arrives as an environment variable.
+
+Files: [03-config/kustomization.yaml](03-config/kustomization.yaml) · [03-config/web-config.yaml](03-config/web-config.yaml) · [03-config/db-secret.yaml](03-config/db-secret.yaml) · [03-config/web-patch.yaml](03-config/web-patch.yaml)
 
 ```sh
 kubectl apply -k 03-config
@@ -143,6 +151,8 @@ kubectl -n demo exec deploy/web -- printenv GREETING REDIS_PASSWORD
 
 Add Redis as a StatefulSet with a volume claim, and point the app at it.
 
+Files: [04-database/kustomization.yaml](04-database/kustomization.yaml) · [04-database/db-service.yaml](04-database/db-service.yaml) · [04-database/db-statefulset.yaml](04-database/db-statefulset.yaml) · [04-database/web-patch.yaml](04-database/web-patch.yaml)
+
 ```sh
 kubectl apply -k 04-database
 kubectl -n demo rollout status statefulset/db
@@ -172,6 +182,8 @@ kubectl -n demo exec db-0 -- sh -c 'redis-cli -a "$REDIS_PASSWORD" --no-auth-war
 ## 5. Requests, limits and probes
 
 Add CPU and memory requests, a memory limit, and liveness and readiness probes to the web pods.
+
+Files: [05-probes/kustomization.yaml](05-probes/kustomization.yaml) · [05-probes/web-patch.yaml](05-probes/web-patch.yaml)
 
 ```sh
 kubectl apply -k 05-probes
@@ -218,6 +230,8 @@ kubectl label node "$OTHER" role=web
 
 Give the web pods a node selector for that label and a toleration for that taint.
 
+Files: [06-scheduling/kustomization.yaml](06-scheduling/kustomization.yaml) · [06-scheduling/web-patch.yaml](06-scheduling/web-patch.yaml)
+
 ```sh
 kubectl apply -k 06-scheduling
 kubectl -n demo rollout status deploy/web
@@ -235,6 +249,8 @@ kubectl -n demo delete pod notolerate --now
 ```
 
 Undo the pinning, spread four web pods over both workers, and drain the same node.
+
+Files: [05-probes/kustomization.yaml](05-probes/kustomization.yaml) · [05-probes/web-patch.yaml](05-probes/web-patch.yaml)
 
 ```sh
 kubectl apply -k 05-probes
@@ -256,6 +272,8 @@ kubectl uncordon "$OTHER"
 ## 7. Namespaces and RBAC
 
 Create a namespace, a ServiceAccount, and a Role that can only read pods.
+
+Files: [07-rbac/kustomization.yaml](07-rbac/kustomization.yaml) · [07-rbac/rbac.yaml](07-rbac/rbac.yaml)
 
 ```sh
 kubectl apply -k 07-rbac
@@ -279,6 +297,8 @@ kubectl -n demo get pods --as=$SA
 ## 8. Break things and diagnose them
 
 Four workloads, each with one fault. Apply them, wait a minute, and find each fault before reading the answers.
+
+Files: [08-broken/a.yaml](08-broken/a.yaml) · [08-broken/b.yaml](08-broken/b.yaml) · [08-broken/c.yaml](08-broken/c.yaml) · [08-broken/d.yaml](08-broken/d.yaml)
 
 ```sh
 kubectl create namespace broken
@@ -312,13 +332,15 @@ kubectl -n broken debug -it "$(kubectl -n broken get pods -l app=shop -o name)" 
 
 Fix each one in its file, apply it again, and then remove the namespace.
 
+Files: [08-broken/a.yaml](08-broken/a.yaml) · [08-broken/b.yaml](08-broken/b.yaml) · [08-broken/c.yaml](08-broken/c.yaml) · [08-broken/d.yaml](08-broken/d.yaml)
+
 ```sh
 kubectl apply -f 08-broken/
 kubectl -n broken get pods,endpointslices
 kubectl delete namespace broken
 ```
 
-**Check:** after your fixes, all four pods are `1/1 Running` with no new restarts, and the EndpointSlice for `d` lists an address. `NOTES.md` names the command that exposed each fault.
+**Check:** after your fixes, all four pods are `1/1 Running` with no new restarts, and the EndpointSlice for `d` lists an address. [`NOTES.md`](NOTES.md) names the command that exposed each fault.
 
 ## 9. The control plane and the kubelet
 
