@@ -83,3 +83,7 @@ Diagrams are hand-written SVG and are edited as text. For exact wiring, generate
 ## Not in this repo
 
 Vendor images and licence files, kubeconfigs, Terraform state, cloud credentials and private keys are ignored by `.gitignore`. This repo is public: do not commit addresses or hostnames of real networks, and do not attach a self-hosted CI runner to it (see [host setup](docs/host-setup.md#automation)).
+
+## License
+
+[MIT](LICENSE). Copyright (c) 2026 Glivorem Technologies LLC.
