@@ -23,8 +23,6 @@ lab_libvirt_packages:
   - libvirt-daemon-kvm
   - libvirt-client
   - virt-install
-lab_libvirt_default_network_packages:
-  - libvirt-daemon-config-network
 lab_libvirt_services:
   - virtqemud.socket
   - virtnetworkd.socket

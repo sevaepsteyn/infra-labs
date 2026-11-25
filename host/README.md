@@ -13,28 +13,29 @@ ansible-playbook site.yml                            # again: reports changed=0
 ansible-playbook site.yml --tags tools               # one feature only
 ```
 
-Needs only `ansible-core` on the controller, and SSH with sudo on the host. Supported hosts: RedHat family (tested on Rocky 9) and Debian family (written for Ubuntu, not yet tested), x86_64 or aarch64.
+Needs only `ansible-core` on the controller, and SSH with sudo on the host. Supported hosts: RedHat family (tested on Rocky 9 and AlmaLinux 10) and Debian family (written for Ubuntu, not yet tested), x86_64 or aarch64.
 
 ## What it changes
 
 | Feature | Variable | Tag | What happens |
 | --- | --- | --- | --- |
-| Snapshot | `lab_snapshot_enabled` | `snapshot` | Before the first change, saves a record of the host to `/var/lib/infra-labs/snapshot.tar.gz` |
 | Base packages | `lab_base_packages_enabled` | `packages` | Installs tcpdump, tshark, ethtool, iperf3, jq, git where missing |
 | inotify limits | `lab_sysctl_enabled` | `sysctl` | Raises values that are below the minimum, now and in `/etc/sysctl.d/90-infra-labs.conf` |
 | MPLS | `lab_mpls_enabled` | `mpls` | Loads `mpls_router` and `mpls_iptunnel` now and at boot; sets the label space |
 | KSM | `lab_ksm_enabled` | `ksm` | Turns kernel same-page merging on now and at boot |
 | zram swap | `lab_zram_enabled` | `zram` | Installs zram-generator with an 8 GB device, unless the host already has zram |
 | Docker CE | `lab_docker_enabled` | `docker` | Installs Docker from Docker's repository **only if no Docker is present** |
-| libvirt | `lab_libvirt_enabled` | `libvirt` | Installs libvirt and QEMU; keeps the default NAT network off |
+| libvirt | `lab_libvirt_enabled` | `libvirt` | Installs libvirt and QEMU; leaves the default NAT network as it is |
 | Group membership | `lab_users` | `users` | Adds the listed users to `docker` |
-| Tools | `lab_tools_enabled` | `tools` | Installs kind, kubectl, helm, cilium, hubble, containerlab and gnmic to `/usr/local/bin`, pinned by version and SHA-256 |
+| Tools | `lab_tools_enabled` | `tools` | Installs kind, kubectl, helm, cilium, hubble, containerlab and gnmic to `/opt/infra-lab/bin`, pinned by version and SHA-256, and adds that directory to `PATH` |
 
 Settings are in [roles/lab_host/defaults/main.yml](roles/lab_host/defaults/main.yml) and describe a dedicated lab host. Turn features off per host in the inventory. A mistyped setting fails the run before anything changes.
 
 Not automated: disk layout, unattended upgrades, the local registry, netlab, vrnetlab image builds and Edgeshark.
 
-containerlab is installed as a plain binary and needs root. On RedHat-family hosts `sudo` does not search `/usr/local/bin`, so run it as `sudo /usr/local/bin/containerlab`.
+Everything the role installs goes under `/opt/infra-lab`: binaries in `bin`, downloads in `cache`. Outside it the role writes only small config files under `/etc`. `/etc/profile.d/infra-labs.sh` appends the `bin` directory to `PATH`, so log in again after the first run.
+
+containerlab is installed as a plain binary and needs root. `sudo` does not search `/opt/infra-lab/bin`, so run it as `sudo /opt/infra-lab/bin/containerlab`.
 
 ## How it is built
 
@@ -47,15 +48,15 @@ Each feature ends by checking its own result, and fails the run if it is not as 
 ## Shared and production hosts
 
 - **An existing Docker is never modified.** No package changes, no `daemon.json`, no restart. The run fails at the end if the Docker daemon's start time changed or a container that was running has stopped.
-- **Nothing is restarted or rebooted**, and no firewall rule is touched.
+- **Nothing is restarted or rebooted**, and the role touches no firewall rule.
+- **A new Docker install brings its own network changes.** On a host with no Docker, starting it for the first time creates `docker0`, turns on `net.ipv4.ip_forward`, adds Docker's NAT and filter rules, and sets the `FORWARD` chain policy to `drop`. Set `lab_docker_enabled: false` if the host routes other traffic and you have not planned for that.
 - **Sysctl values only go up.** A value the host already has at or above the minimum is not written anywhere.
 - **Existing zram is left alone**, whether it comes from a zram-generator config the role did not write or from somewhere else.
-- **Binaries in `/usr/local/bin` with the same names are replaced.** Check for your own `kubectl` or `helm` there first; the dry run lists each tool it would install.
+- **The host's own tools win.** `/opt/infra-lab/bin` goes at the end of `PATH`, so a `kubectl` or `helm` the host already has is the one that runs; call the lab's by full path.
+- **Docker's and libvirt's default NAT networks are left alone**, on a new install as on an existing one. Set `lab_libvirt_default_network_off` to turn libvirt's off.
 - **Installing a package can upgrade another.** The package manager may upgrade something already on the host to satisfy a dependency (libvirt pulled in a newer systemd in testing). `dnf install --assumeno <package>` or `apt-get install -s <package>` shows this beforehand.
 
-There is no automated revert. To back a change out by hand, the snapshot records what the host looked like before the first run: packages, sysctls, modules, addresses, routes, listening ports, running services, firewall rules and containers. It is readable by root only and is never rewritten.
-
-Use the conservative settings in [inventory/hosts.example.yml](inventory/hosts.example.yml), and always start with `--check --diff`.
+There is no automated revert. Use the conservative settings in [inventory/hosts.example.yml](inventory/hosts.example.yml), and always start with `--check --diff`.
 
 This repo is public. Keep real host names and addresses in `inventory/hosts.yml`, never in committed files.
 

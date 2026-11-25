@@ -9,6 +9,7 @@ lab_managed_marker: "Managed by the infra-labs lab_host role"
 lab_sysctl_file: /etc/sysctl.d/90-infra-labs.conf
 lab_mpls_sysctl_file: /etc/sysctl.d/90-infra-labs-mpls.conf
 lab_mpls_modules_file: /etc/modules-load.d/infra-labs-mpls.conf
+lab_path_file: /etc/profile.d/infra-labs.sh
 lab_ksm_tmpfiles_file: /etc/tmpfiles.d/infra-labs-ksm.conf
 lab_ksm_run: /sys/kernel/mm/ksm/run
 lab_zram_conf_file: /etc/systemd/zram-generator.conf

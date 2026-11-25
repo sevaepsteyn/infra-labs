@@ -13,13 +13,17 @@ all:
           lab_users:
             - youruser
 
-        # A shared or production host: install the tools and raise the inotify
-        # limits, and leave everything else alone. An existing Docker is never
-        # touched whatever these are set to.
+        # A shared or production host: install the base packages and the
+        # tools, raise the inotify limits, and leave everything else alone.
+        # Docker CE is installed only if the host has none
+        # (lab_docker_enabled: false prevents that); an existing Docker is
+        # never touched whatever these are set to.
         # sharedhost:
         #   ansible_host: shared.example.net
+        #   lab_dir: /opt/infra-lab      # where binaries and downloads go
         #   lab_mpls_enabled: false      # turn on when you reach lab 19
         #   lab_ksm_enabled: false       # costs CPU on a busy host
         #   lab_zram_enabled: false      # host already has swap
         #   lab_libvirt_enabled: false   # turn on for labs 14, 17 and 22
+        #   lab_libvirt_default_network_off: false   # true stops libvirt's NAT network
         #   lab_users: []                # docker group is root-equivalent

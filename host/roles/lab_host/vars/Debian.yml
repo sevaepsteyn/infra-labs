@@ -22,6 +22,5 @@ lab_libvirt_packages:
   - libvirt-daemon-system
   - libvirt-clients
   - virtinst
-lab_libvirt_default_network_packages: []
 lab_libvirt_services:
   - libvirtd

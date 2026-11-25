@@ -5,10 +5,9 @@ argument_specs:
   main:
     short_description: Prepare a host for the infra-labs labs.
     options:
-      lab_cache_dir: {type: path, default: /var/cache/infra-labs}
-      lab_bin_dir: {type: path, default: /usr/local/bin}
-      lab_snapshot_enabled: {type: bool, default: true}
-      lab_snapshot_dir: {type: path, default: /var/lib/infra-labs}
+      lab_dir: {type: path, default: /opt/infra-lab}
+      lab_cache_dir: {type: path, default: /opt/infra-lab/cache}
+      lab_bin_dir: {type: path, default: /opt/infra-lab/bin}
       lab_base_packages_enabled: {type: bool, default: true}
       lab_sysctl_enabled: {type: bool, default: true}
       lab_sysctl:
@@ -22,7 +21,7 @@ argument_specs:
       lab_zram_size_mb: {type: int, default: 8192}
       lab_docker_enabled: {type: bool, default: true}
       lab_libvirt_enabled: {type: bool, default: true}
-      lab_libvirt_default_network: {type: bool, default: false}
+      lab_libvirt_default_network_off: {type: bool, default: false}
       lab_users: {type: list, elements: str, default: []}
       lab_user_groups: {type: list, elements: str, default: [docker]}
       lab_tools_enabled: {type: bool, default: true}

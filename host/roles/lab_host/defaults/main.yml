@@ -3,20 +3,15 @@
 # For a shared or production host, turn features off per host in the inventory
 # (see inventory/hosts.example.yml).
 
+# Everything the role installs goes under here. The only files it writes
+# elsewhere are the small config files under /etc that the system reads.
+lab_dir: /opt/infra-lab
 # Downloaded tool archives.
-lab_cache_dir: /var/cache/infra-labs
-# Where tool binaries are installed. A binary of the same name already there
-# is replaced.
-lab_bin_dir: /usr/local/bin
+lab_cache_dir: "{{ lab_dir }}/cache"
+# Where tool binaries are installed. Added to the end of login shells' PATH.
+lab_bin_dir: "{{ lab_dir }}/bin"
 
 # --- Features -----------------------------------------------------------------
-# Before the first change, write a one-time record of the host (packages,
-# sysctls, modules, addresses, listening ports, services, firewall rules,
-# containers) to lab_snapshot_dir. Root-only; never rewritten.
-lab_snapshot_enabled: true
-lab_snapshot_dir: /var/lib/infra-labs
-
-
 lab_base_packages_enabled: true
 
 lab_sysctl_enabled: true
@@ -41,13 +36,16 @@ lab_zram_enabled: true
 lab_zram_size_mb: 8192
 
 # Docker CE, installed only where no Docker daemon is present. A Docker that
-# is already there is never upgraded, reconfigured or restarted.
+# is already there is never upgraded, reconfigured or restarted. The role
+# never configures Docker's networks: docker0 and its NAT stay as Docker
+# sets them up.
 lab_docker_enabled: true
 
-# libvirt and QEMU for VM nodes. The default NAT network (virbr0, with its own
-# DNS and DHCP) is kept off unless lab_libvirt_default_network is true.
+# libvirt and QEMU for VM nodes. libvirt's default NAT network (virbr0, with
+# its own DNS and DHCP) is left as the host has it. Set
+# lab_libvirt_default_network_off to stop it and disable its autostart.
 lab_libvirt_enabled: true
-lab_libvirt_default_network: false
+lab_libvirt_default_network_off: false
 
 # Users to add to lab_user_groups. Docker group membership is root-equivalent.
 lab_users: []

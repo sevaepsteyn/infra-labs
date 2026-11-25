@@ -6,11 +6,6 @@
   ansible.builtin.import_tasks: preflight.yml
   tags: always
 
-- name: Snapshot
-  ansible.builtin.import_tasks: snapshot.yml
-  when: lab_snapshot_enabled | bool
-  tags: snapshot
-
 - name: Base packages
   ansible.builtin.import_tasks: packages.yml
   when: lab_base_packages_enabled | bool

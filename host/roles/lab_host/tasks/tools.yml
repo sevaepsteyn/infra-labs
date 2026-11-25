@@ -1,11 +1,30 @@
 ---
-- name: Create the download cache
+- name: Create the lab directories
   ansible.builtin.file:
-    path: "{{ lab_cache_dir }}"
+    path: "{{ item }}"
     state: directory
     owner: root
     group: root
     mode: "0755"
+  loop:
+    - "{{ lab_dir }}"
+    - "{{ lab_cache_dir }}"
+    - "{{ lab_bin_dir }}"
+
+# Appended, so a tool of the same name that the host already has on PATH
+# still wins.
+- name: Add the tool directory to PATH for login shells
+  ansible.builtin.copy:
+    content: |
+      # {{ lab_managed_marker }}.
+      case ":$PATH:" in
+        *":{{ lab_bin_dir }}:"*) ;;
+        *) PATH="$PATH:{{ lab_bin_dir }}" ;;
+      esac
+    dest: "{{ lab_path_file }}"
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Install each tool
   ansible.builtin.include_tasks: tool.yml
