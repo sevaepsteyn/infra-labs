@@ -13,13 +13,28 @@ ansible-playbook site.yml                            # again: reports changed=0
 ansible-playbook site.yml --tags tools               # one feature only
 ```
 
-Needs only `ansible-core` on the controller, and SSH with sudo on the host. Supported hosts: RedHat family (tested on Rocky 9 and AlmaLinux 10) and Debian family (written for Ubuntu, not yet tested), x86_64 or aarch64.
+Needs only `ansible-core` on the machine you run it from, and SSH with sudo on the host. Supported hosts: RedHat family (tested on Rocky 9 and AlmaLinux 10) and Debian family (written for Ubuntu, not yet tested), x86_64 or aarch64.
+
+### Run it on the host itself
+
+The playbook can also run on the host it builds, with no second machine. The role installs `ansible-core` as a base package, so a host built remotely can already do this; on a fresh host, install it by hand first.
+
+```sh
+sudo dnf install -y ansible-core git                 # Debian family: sudo apt-get install -y ansible-core git
+git clone https://github.com/sevaepsteyn/infra-labs.git
+cd infra-labs/host
+cp inventory/hosts.example.yml inventory/hosts.yml   # use the localhost entry, remove the others
+ansible-playbook site.yml --check --diff
+ansible-playbook site.yml
+```
+
+The `localhost` entry sets `ansible_connection: local`, so nothing goes over SSH. Add `-K` to the `ansible-playbook` commands if `sudo` asks for a password.
 
 ## What it changes
 
 | Feature | Variable | Tag | What happens |
 | --- | --- | --- | --- |
-| Base packages | `lab_base_packages_enabled` | `packages` | Installs tcpdump, tshark, ethtool, iperf3, jq, git where missing |
+| Base packages | `lab_base_packages_enabled` | `packages` | Installs tcpdump, tshark, ethtool, iperf3, jq, git and ansible-core where missing |
 | inotify limits | `lab_sysctl_enabled` | `sysctl` | Raises values that are below the minimum, now and in `/etc/sysctl.d/90-infra-labs.conf` |
 | MPLS | `lab_mpls_enabled` | `mpls` | Loads `mpls_router` and `mpls_iptunnel` now and at boot; sets the label space |
 | KSM | `lab_ksm_enabled` | `ksm` | Turns kernel same-page merging on now and at boot |

@@ -13,6 +13,13 @@ all:
           lab_users:
             - youruser
 
+        # The machine you are running ansible-playbook on (see "Run it on the
+        # host itself" in the README). Takes the same settings as any host.
+        # localhost:
+        #   ansible_connection: local
+        #   lab_users:
+        #     - youruser
+
         # A shared or production host: install the base packages and the
         # tools, raise the inotify limits, and leave everything else alone.
         # Docker CE is installed only if the host has none

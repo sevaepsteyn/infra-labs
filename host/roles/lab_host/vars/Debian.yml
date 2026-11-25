@@ -8,6 +8,8 @@ lab_base_packages:
   - jq
   - git
   - tar
+  # So the playbook can also be run on the host itself.
+  - ansible-core
 lab_zram_packages:
   - systemd-zram-generator
 lab_docker_packages:

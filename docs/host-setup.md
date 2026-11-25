@@ -16,7 +16,7 @@ One x86 host runs every lab on bare metal: Linux, Docker CE, containerlab and ki
 
 ## Operating system
 
-- **Base packages:** iproute2, tcpdump, tshark, ethtool, iperf3, jq, git, and `qemu-kvm` with libvirt.
+- **Base packages:** iproute2, tcpdump, tshark, ethtool, iperf3, jq, git, ansible-core, and `qemu-kvm` with libvirt.
 - **Updates:** unattended security upgrades; kernel updates and reboots happen between labs, not during one.
 
 ## Kernel and host tuning
