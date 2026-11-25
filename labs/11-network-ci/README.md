@@ -9,7 +9,7 @@ Fit: both · 10–14 GB · uses lab 3's configs. Safe change across a large flee
 - **Build:** switch configs and the topology file in git, plus a self-hosted GitHub Actions runner on the host that runs `containerlab deploy`, pushes the configs, runs checks and finishes with `containerlab destroy`.
 - **Public repo:** never attach the self-hosted runner to this public repo; a pull request from anyone would run `containerlab` as root on the host. Run this lab against a private mirror of the repo.
 - **Learn:** treating the network as code, automated testing before a change, and gated rollouts.
-- **Automation:** like [ESnet's ROVER](https://ES.net/assets/Uploads/Building-a-Realistic-Orchestration-Validation-Environment-for-netwoRks-ROVER.pdf), a containerlab-based environment for testing orchestration before production. Here: GitHub Actions running containerlab, Batfish, and pytest with Nornir and gnmic checks.
+- **Automation:** like [ESnet's ROVER](https://es.net/assets/Uploads/Building-a-Realistic-Orchestration-Validation-Environment-for-netwoRks-ROVER.pdf), a containerlab-based environment for testing orchestration before production. Here: GitHub Actions running containerlab, Batfish, and pytest with Nornir and gnmic checks.
 
 1. Put lab 3's configs in a repo with the runner attached.
 2. Write checks: every BGP session up, the service IP reachable from the client, policies enforced.

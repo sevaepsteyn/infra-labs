@@ -2,7 +2,7 @@
 
 ## Published labs and online platforms
 
-Nineteen of the 25 labs have a published lab or quickstart close enough to start from; each one's **Published labs** note names it and says how this doc's version differs, and why. Six have no close match: labs 7, 10, 13, 16, 18 and 20 (supply-chain security, chaos measurement, storage networking, hybrid cloud, and the two HPC-center designs).
+Nineteen of the 25 labs have a published lab or quickstart close enough to start from; each one's **Published labs** note names it and says how this repo's version differs, and why. Six have no close match: labs 7, 10, 13, 16, 18 and 20 (supply-chain security, chaos measurement, storage networking, hybrid cloud, and the two HPC-center designs).
 
 The differences follow one pattern. Published labs teach one product or protocol on its own topology; these labs share lab 3's fabric and one git repo, add Kubernetes to the network labs and the network to the Kubernetes labs, and follow environments the target employers describe.
 
@@ -11,7 +11,7 @@ The differences follow one pattern. Published labs teach one product or protocol
 | [Isovalent and Cilium labs](https://isovalent.com/resource-library/labs/) | Browser, guided, with quizzes and an exam | Free; [badges](https://www.credly.com/org/isovalent/badge/cilium-cluster-mesh) | 1, 2, 6, 8, 23 |
 | [Containerlab in GitHub Codespaces](https://containerlab.dev/manual/codespaces/) | Browser or VS Code | 120 core-hours and 15 GB storage free a month; 2-core 8 GB or 4-core 16 GB machines by default | Labs needing 12 GB or less; a 4-core machine uses the free hours in 30 hours |
 | [Arista Community Labs](https://aclabs.arista.com/) | Codespaces with Ansible, AVD and containerlab preinstalled | Codespaces quota; some labs need bigger machines [requested from GitHub](https://aclabs.arista.com/codespaces-quickstart) | 4, 11 |
-| [Arista Test Drive automation labs](https://labguides.testdrive.arista.com/2025.3/automation/overview/) | Arista-hosted lab instance | Through Arista; the [AVD Playground](https://ansible-avd-forked.readthedocs.io/en/latest/ansible_collections/arista/avd/examples/dual-dc-l3ls/index.html) is for customers with a support contract | 4, 11 |
+| [Arista Test Drive automation labs](https://labguides.testdrive.arista.com/latest/automation/overview/) | Arista-hosted lab instance | Through Arista; the [AVD Playground](https://ansible-avd-forked.readthedocs.io/en/latest/ansible_collections/arista/avd/examples/dual-dc-l3ls/index.html) is for customers with a support contract | 4, 11 |
 | [iximiuz Labs](https://labs.iximiuz.com/docs/playgrounds/what-are-playgrounds) | Firecracker microVMs, browser or `labctl` CLI | Free tier; [paid tier](https://labs.iximiuz.com/pricing/tinkerer) adds persistent playgrounds and bigger VMs | 0, 1, 15, and labs that need separate kernels |
 | [NVIDIA Air](https://www.nvidia.com/en-us/networking/network-simulation) | NVIDIA's cloud | Free; Cumulus Linux, SONiC and NetQ | 4, 21, 22 |
 | [USC NETLAB pods](https://research.cec.sc.edu/cyberinfra/dmz-aug-2025) | Hosted, through USC's Science DMZ workshops | Access given to workshop attendees | 14 |

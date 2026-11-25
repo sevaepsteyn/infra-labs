@@ -4,7 +4,7 @@
 
 Fit: national labs · 20–25 GB.
 
-This lab follows NERSC's published network design for Perlmutter, its current flagship: a Slingshot high-speed network (HSN) in a 2-level dragonfly that carries compute, storage and login traffic; a LAG from the HSN to the site network; and a separate management network with Kubernetes running system management ([CUG 2022 paper](https://cug.org/proceedings/cug2022_proceedings/includes/files/pap117s2-file1.pdf), [SLUG23 talk](https://Slurm.schedmd.com/SLUG23/NERSC-SLUG23.pdf)). Slingshot itself can't be emulated, so the HSN is an Ethernet dragonfly stand-in.
+This lab follows NERSC's published network design for Perlmutter, its current flagship: a Slingshot high-speed network (HSN) in a 2-level dragonfly that carries compute, storage and login traffic; a LAG from the HSN to the site network; and a separate management network with Kubernetes running system management ([CUG 2022 paper](https://cug.org/proceedings/cug2022_proceedings/includes/files/pap117s2-file1.pdf), [SLUG23 talk](https://slurm.schedmd.com/SLUG23/NERSC-SLUG23.pdf)). Slingshot itself can't be emulated, so the HSN is an Ethernet dragonfly stand-in.
 
 ![The high-speed network carries compute, storage and login; management stays separate](diagram.svg)
 

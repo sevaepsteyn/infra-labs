@@ -2,7 +2,7 @@
 
 Twenty-five hands-on labs, numbered 0 to 24, simplest first: Kubernetes itself, then Cilium, BGP fabrics, security, monitoring, and designs modeled on what national labs and frontier AI labs publish about their infrastructure. Everything runs on one x86 host with containerlab and kind.
 
-Each lab has what to build, exercises and, where one exists, the closest published lab, plus a fit line: national labs, frontier AI labs (AI), or both. Labs 1 to 22 also have a design diagram.
+Each lab has what to build, exercises and, where one exists, the closest published lab, plus a fit line: national labs, frontier AI labs (AI), or both. Labs 1 to 24 also have a design diagram.
 
 ## Start here
 
@@ -73,7 +73,7 @@ Ordered simplest first. Each lab lists its fit and rough RAM, then a design diag
 
 | Path | What it holds |
 | --- | --- |
-| `docs/` | Host setup, image sourcing, verifying a lab, alternatives and published labs, sources |
+| `docs/` | Host setup, image sourcing, verifying a lab, alternatives and published labs, references |
 | `host/` | Ansible playbook that builds the lab host |
 | `shared/` | kind configs and Cilium Helm values reused across labs, and `helpers.sh`, the helpers the checks use |
 | `labs/NN-name/` | One folder per lab: `README.md` (the spec), `NOTES.md` (the log), `diagram.svg`, topology, configs and manifests |

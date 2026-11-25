@@ -10,7 +10,7 @@ Fit: both · 14–18 GB · builds on lab 3. Storage traffic behaves differently 
 - **Network separation:** use Rook's host network provider, with the CephCluster's `addressRanges` naming the public and cluster subnets; in kind, "host" is the node container, so Ceph sees both of its interfaces. Multus is the alternative and adds a moving part. Rook's default pod networking puts both networks on the CNI and gives nothing to separate.
 - **Memory:** set `osd_memory_target` to about 1.5 GB. At the 4 GB default, three OSDs alone pass the RAM estimate.
 - **Learn:** separating replication traffic, how CSI attaches volumes, and how storage behaves when its network degrades or a node fails.
-- **Automation:** like HPE Cray System Management at NERSC, which runs [Ceph as utility storage](https://Slurm.schedmd.com/SLUG23/NERSC-SLUG23.pdf) for file, block and object storage. Here: Rook and CephCluster resources via Helm and Argo CD.
+- **Automation:** like HPE Cray System Management at NERSC, which runs [Ceph as utility storage](https://slurm.schedmd.com/SLUG23/NERSC-SLUG23.pdf) for file, block and object storage. Here: Rook and CephCluster resources via Helm and Argo CD.
 
 1. Deploy Rook-Ceph and confirm with captures that replication uses only the storage network.
 2. Create a volume, write to it with `fio`, and record throughput and latency.

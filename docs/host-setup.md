@@ -82,4 +82,4 @@ Each lab's **Automation** line follows the closest real environment that has pub
 
 - [Getting the images](images.md): which network OS images pull freely and which need a vendor account.
 - [Published labs, platforms and alternatives](alternatives.md).
-- [Sources](sources.md).
+- [References](references.md).

@@ -1,9 +1,9 @@
-# Sources
+# References
 
 - **NERSC and ESnet**
   - [Network Integration of Perlmutter at NERSC (CUG 2022)](https://cug.org/proceedings/cug2022_proceedings/includes/files/pap117s2-file1.pdf)
   - [NERSC HEP HPC-Cloud slides, Sep 2022](https://indico.cern.ch/event/1183995/contributions/5067505/attachments/2516411/4326409/NERSC%20HEP%20HPC-Cloud%20Sep%202022.pdf)
-  - [Never use Slurm HA again (NERSC, SLUG23)](https://Slurm.schedmd.com/SLUG23/NERSC-SLUG23.pdf)
+  - [Never use Slurm HA again (NERSC, SLUG23)](https://slurm.schedmd.com/SLUG23/NERSC-SLUG23.pdf)
   - [NERSC storage network overhaul (Berkeley Lab CS)](https://cs.lbl.gov/?p=6142)
   - [Switch to Perlmutter / Spin slides](https://conferences.lbl.gov/event/1080/contributions/6570/attachments/4300/3766/Switch%20to%20Perlmutter.pdf)
   - [NERSC Spin FAQ](https://docs.nersc.gov/services/spin/faq/)
@@ -11,7 +11,7 @@
   - [OMNI with Prometheus, Grafana and ServiceNow](https://escholarship.org/content/qt7ch6t25w/qt7ch6t25w.pdf?t=rr0fgb)
   - [HPE Cray System Management: configuration management](https://cray-hpe.github.io/docs-csm/en-17/operations/configuration_management/configuration_management)
   - [Transforming scientific computing infrastructure with Cilium at ESnet (CNCF)](https://www.cncf.io/case-studies/esnet-energy-sciences-network/)
-  - [Building a Realistic Orchestration Validation Environment (ESnet ROVER)](https://ES.net/assets/Uploads/Building-a-Realistic-Orchestration-Validation-Environment-for-netwoRks-ROVER.pdf)
+  - [Building a Realistic Orchestration Validation Environment (ESnet ROVER)](https://es.net/assets/Uploads/Building-a-Realistic-Orchestration-Validation-Environment-for-netwoRks-ROVER.pdf)
   - [ESnet6 orchestration talks (Chris Cummings)](https://www.es.net/about/esnet-staff/network-engineering-and-operations/chris-cummings/)
   - [Science DMZ: performance monitoring (ESnet fasterdata)](https://fasterdata.es.net/science-dmz/science-dmz-performance-monitoring/)
 - **Doudna**
@@ -53,9 +53,9 @@
   - [Cilium Cluster Mesh lab (Isovalent)](https://isovalent.com/labs/cilium-cluster-mesh)
   - [srl-k8s-anycast-lab (Nokia)](https://github.com/srl-labs/srl-k8s-anycast-lab)
   - [srl-telemetry-lab (Nokia)](https://github.com/srl-labs/srl-telemetry-lab)
-  - [Arista CI workshop: L3LS EVPN/VXLAN](https://labguides.testdrive.arista.com/2024.3/automation/ci_avd_l3ls/overview/)
+  - [Arista CI workshop: L3LS EVPN/VXLAN](https://labguides.testdrive.arista.com/latest/automation/ci_avd_l3ls/overview/)
   - [NVIDIA Air network simulation](https://www.nvidia.com/en-us/networking/network-simulation)
-  - [Getting started with an Inference Gateway](https://gateway-api-inference-extension.sigs.k8s.io/guides/)
+  - [Getting started with an Inference Gateway](https://gateway-api-inference-extension.sigs.k8s.io/)
   - [Tinkerbell CAPT playground](https://github.com/tinkerbell/playground/blob/main/capt/README.md)
   - [Set up a MultiKueue environment](https://kueue.sigs.k8s.io/docs/tasks/manage/setup_multikueue)
   - [perfSONAR 5 lab library on NETLAB (USC)](https://research.cec.sc.edu/files/cyberinfra/files/End-to-end%20monitoring%20with%20perfSONAR%2C%20NETLAB%20platform.pdf)
