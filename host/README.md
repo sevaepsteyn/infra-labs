@@ -31,7 +31,7 @@ Needs only `ansible-core` on the controller, and SSH with sudo on the host. Supp
 
 Settings are in [roles/lab_host/defaults/main.yml](roles/lab_host/defaults/main.yml) and describe a dedicated lab host. Turn features off per host in the inventory. A mistyped setting fails the run before anything changes.
 
-Not automated: disk layout, unattended upgrades, the local registry, netlab, vrnetlab image builds and Edgeshark.
+Not automated: unattended upgrades, the local registry, netlab, vrnetlab image builds and Edgeshark.
 
 Everything the role installs goes under `/opt/infra-lab`: binaries in `bin`, downloads in `cache`. Outside it the role writes only small config files under `/etc`. `/etc/profile.d/infra-labs.sh` appends the `bin` directory to `PATH`, so log in again after the first run.
 

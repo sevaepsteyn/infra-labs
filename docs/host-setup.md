@@ -1,8 +1,8 @@
 # Lab host setup
 
-One x86 host runs every lab on bare metal: Ubuntu Server 26.04 LTS, Docker CE, containerlab and kind, with KVM for vendor VM images. The Mac is only a front end, and nothing in a lab is exposed to the home network; only lab 16 reaches outside, over its tunnels to a cloud VPC.
+One x86 host runs every lab on bare metal: Linux, Docker CE, containerlab and kind, with KVM for vendor VM images. Your computer is only a front end, and nothing in a lab is exposed to the network the host is on; only lab 16 reaches outside, over its tunnels to a cloud VPC.
 
-![The Mac is only a front end; every lab runs on the x86 host](lab-host.svg)
+![Your computer is only a front end; every lab runs on the x86 host](lab-host.svg)
 
 ## Hardware
 
@@ -11,13 +11,11 @@ One x86 host runs every lab on bare metal: Ubuntu Server 26.04 LTS, Docker CE, c
 | CPU | x86 with VT-x and VT-d (or AMD-V and AMD-Vi), enabled in the BIOS | vrnetlab images run QEMU with KVM inside their containers |
 | Memory | The largest lab's need (about 28 GB) plus about 4 GB for the host; more for heavier vendor VMs or two labs at once | Each lab states its own RAM, from 4 to 28 GB, and runs one at a time |
 | Storage | NVMe, 500 GB or more | Vendor images, kind node images and container layers add up quickly |
-| Network | One wired NIC for management; Wi-Fi off | Stable SSH; a second NIC or a VLAN can later connect labs to real gear |
-| BIOS | Virtualization on; power on after AC loss | KVM support, and the host comes back by itself after an outage |
+| Network | One wired NIC for management | Stable SSH; a second NIC or a VLAN can later connect labs to real gear |
+| BIOS | Virtualization on; last state after AC loss | KVM support, and a host that was running comes back by itself after an outage |
 
 ## Operating system
 
-- **Ubuntu Server 26.04 LTS, minimal install,** with OpenSSH and no desktop. It ships kernel 7.0 and is the most common containerlab host. 24.04 LTS is the conservative alternative.
-- **Disk layout:** LVM, with separate volumes for `/var/lib/docker` and `/var/lib/libvirt/images` so images can't fill the root filesystem.
 - **Base packages:** iproute2, tcpdump, tshark, ethtool, iperf3, jq, git, and `qemu-kvm` with libvirt.
 - **Updates:** unattended security upgrades; kernel updates and reboots happen between labs, not during one.
 
@@ -36,27 +34,26 @@ One x86 host runs every lab on bare metal: Ubuntu Server 26.04 LTS, Docker CE, c
 
 | Tool | Role | Install from |
 | --- | --- | --- |
-| Docker CE | Container runtime for containerlab and kind | Docker's apt repository (not the snap) |
-| containerlab | Topologies as code; most labs run on it | containerlab installer; users in `clab_admins` |
+| Docker CE | Container runtime for containerlab and kind | Docker's own package repository (not the distribution's package or a snap) |
+| containerlab | Topologies as code; most labs run on it | Release binary; run with `sudo` |
 | kind | Kubernetes clusters, used as `k8s-kind` nodes | Release binary |
 | kubectl, Helm, cilium and hubble CLIs | Cluster and Cilium management | Release binaries |
 | netlab | Generates routing configs for containerlab from a short topology | pip |
 | vrnetlab (hellt fork) | Packages vendor VM images as containers | git, built locally |
-| libvirt and QEMU | Full VM nodes when per-node kernels matter | apt |
+| libvirt and QEMU | Full VM nodes when per-node kernels matter | Distribution packages |
 | Local Docker registry | Keeps built vendor images, tagged by version | A registry container on the host |
 | Edgeshark and gnmic | Packet capture from VS Code; gNMI telemetry and config | Containers / release binary |
 
 ## Networking and access
 
-- **Host management:** the wired NIC on the home LAN with a reserved DHCP address; SSH with keys only.
-- **Remote access:** a WireGuard tunnel so the Mac reaches the host from anywhere; nothing else is opened to the internet.
+- **Host access:** SSH with keys only, to a fixed address on the wired NIC.
 - **Lab management:** each lab gets containerlab's management bridge (172.20.20.0/24 by default); node consoles and SSH are reached from the host or the VS Code extension.
 - **Lab traffic:** stays on veth links between nodes. Outbound internet for package installs goes through Docker's NAT.
 - **Later, real gear:** a spare NIC or VLAN can attach a lab to physical devices through containerlab host or macvlan links.
 
 ## Front end
 
-VS Code on the Mac connects over Remote SSH and runs the Containerlab extension there: TopoViewer to draw and run topologies, and Edgeshark with Wireshark on the Mac for packet capture on any link.
+VS Code connects to the host over Remote SSH and runs the Containerlab extension there: TopoViewer to draw and run topologies, and Edgeshark with Wireshark on your computer for packet capture on any link.
 
 ## Tool choices
 
