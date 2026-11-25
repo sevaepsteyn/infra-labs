@@ -15,7 +15,7 @@ Fit: both · 16–18 GB · builds on labs 3 and 9. The point is measuring recove
 3. Kill a worker with Chaos Mesh and time how long the service runs short of backends.
 4. Write a short postmortem for each run: what you saw, when, and what would have caught it sooner.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab03` (see [verifying a lab](../../docs/verify.md)).
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab03` (see [verifying a lab](../../docs/verify.md)).
 
 1. `on client ping -i 0.1 -c 300 $SVC_IP` across the link shut: lost packets times 0.1 s is the outage. `NOTES.md` has the figure with and without BFD, and the BFD figure is smaller.
 2. Find the link from the dashboards before looking at the script, then confirm with `sudo /opt/infra-lab/bin/containerlab tools netem show -n clab-lab03-leaf1` that the impaired interface is the one you named.

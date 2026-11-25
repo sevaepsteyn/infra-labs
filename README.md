@@ -75,7 +75,7 @@ Ordered simplest first. Each lab lists its fit and rough RAM, then a design diag
 | --- | --- |
 | `docs/` | Host setup, image sourcing, verifying a lab, alternatives and published labs, sources |
 | `host/` | Ansible playbook that builds the lab host |
-| `shared/` | kind configs and Cilium Helm values reused across labs, and `verify.sh`, the helpers the checks use |
+| `shared/` | kind configs and Cilium Helm values reused across labs, and `helpers.sh`, the helpers the checks use |
 | `labs/NN-name/` | One folder per lab: `README.md` (the spec), `NOTES.md` (the log), `diagram.svg`, topology, configs and manifests |
 
 Diagrams are hand-written SVG and are edited as text. For exact wiring, generate a graph from the topology file with `containerlab graph`.

@@ -14,7 +14,7 @@ Fit: both · about 5 GB · the smallest containerlab topology. A single FRR rout
 2. Create a LoadBalancer service and find its /32 in FRR's routing table.
 3. Curl the service from the client, then stop one node and watch its route withdraw.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab02` (see [verifying a lab](../../docs/verify.md)).
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab02` (see [verifying a lab](../../docs/verify.md)).
 
 1. `frr router "show bgp summary"` shows both nodes `Established` with a prefix count above zero, and `cilium bgp peers` shows the same sessions from the cluster side.
 2. `SVC_IP=$(svc_ip demo web); frr router "show ip route $SVC_IP/32"` shows a BGP route with one next hop per node.

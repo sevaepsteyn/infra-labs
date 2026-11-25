@@ -30,7 +30,7 @@ This lab copies the two-fabric layout of a GPU training cluster: a routed front 
 4. Fail a rail switch or one node's rail link and confirm traffic stays on the surviving rail while the front end is untouched.
 5. Cordon and drain a node, watch its BGP routes withdraw, then roll a switch config change through git and check for drift.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab21` (see [verifying a lab](../../docs/verify.md)).
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab21` (see [verifying a lab](../../docs/verify.md)).
 
 1. `srl fe-leaf1 "show network-instance default protocols bgp neighbor"` shows the front-end sessions `established`, and `srl rail0 "show network-instance default route-table ipv4-unicast prefix $RAIL1_SUBNET"` shows rail 1's subnet reached through the back-end spine.
 2. `kubectl get network-attachment-definitions` lists one per rail, `kubectl exec t1 -- ip -br addr` shows `net1` and `net2` with an address in each rail's subnet, and `kubectl exec t1 -- iperf3 -c $T2_RAIL0_IP -t 5` completes for every pair of pods.

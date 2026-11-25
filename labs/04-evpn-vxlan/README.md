@@ -17,7 +17,7 @@ Fit: both · 14–18 GB · builds on lab 3. This is the most common modern data 
 5. Peer Cilium into tenant A's VRF so its service IPs exist only in that tenant.
 6. Follow one ARP request across the fabric: find the type-3 routes that build each leaf's flood list and capture the flooded request on the far leaf. Turn on ARP suppression and confirm the local leaf now answers from its type-2 MAC/IP route. Then move the host to another leaf and watch the MAC mobility sequence number change.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab04` (see [verifying a lab](../../docs/verify.md)).
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab04` (see [verifying a lab](../../docs/verify.md)).
 
 1. `srl leaf1 "show network-instance default protocols bgp routes evpn route-type 2 summary"` and the same command with `route-type 5` both list routes from the other leaves.
 2. `on h1 ping -c 3 $H3_IP` succeeds between hosts on leaves 1 and 3 in the same subnet, and `cap leaf1 -i e1-49 udp port 4789 -c 5` on an uplink shows the pings inside VXLAN.

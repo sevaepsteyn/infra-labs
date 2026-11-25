@@ -15,7 +15,7 @@ Fit: AI · about 12 GB · lab 3's fabric is optional. Serving traffic is a large
 3. Load-test and watch the autoscaler add replicas.
 4. Kill a model server mid-test and check error rates at the gateway.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab03` (see [verifying a lab](../../docs/verify.md)). Without lab 3's fabric, run the client commands from any pod in place of `on client`.
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab03` (see [verifying a lab](../../docs/verify.md)). Without lab 3's fabric, run the client commands from any pod in place of `on client`.
 
 1. `kubectl get gateway,httproute,inferencepool -A` shows the Gateway `Programmed` and the route `Accepted`, and `on client curl -s -o /dev/null -w '%{http_code}\n' http://$GW_IP/v1/models` prints `200`.
 2. `kubectl get httproute llm -o jsonpath='{.spec.rules[0].backendRefs[*].weight}'` prints the weights in git. Send 200 requests and count them per server with `kubectl logs`: the canary's share is close to its weight, and moves when the weight does.

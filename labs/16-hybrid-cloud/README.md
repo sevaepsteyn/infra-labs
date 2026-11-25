@@ -17,7 +17,7 @@ Fit: AI · 4–6 GB locally plus a small cloud account. Anthropic's postings ask
 4. Find the tunnel MTU, fix TCP MSS clamping, and confirm large transfers work.
 5. `terraform destroy` at the end of each session.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab16` (see [verifying a lab](../../docs/verify.md)). The `edge` node is VyOS, which answers `frr` commands.
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab16` (see [verifying a lab](../../docs/verify.md)). The `edge` node is VyOS, which answers `frr` commands.
 
 1. `terraform output` prints the tunnel endpoints, and `frr edge "show bgp summary"` shows both tunnel sessions `Established`.
 2. `frr edge "show bgp ipv4 unicast neighbors $PEER1 advertised-routes"` lists only the service prefix, and the `received-routes` form (or `routes`) lists only the VPC prefix.

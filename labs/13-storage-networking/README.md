@@ -17,7 +17,7 @@ Fit: both · 14–18 GB · builds on lab 3. Storage traffic behaves differently 
 3. Fail a storage-leaf link, then a whole node, and watch Ceph rebalance.
 4. Throttle the storage network with `tc` and see how a database pod reacts.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab03` (see [verifying a lab](../../docs/verify.md)).
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab03` (see [verifying a lab](../../docs/verify.md)).
 
 1. `kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph status` shows `HEALTH_OK` with three OSDs up, and `ceph osd dump | grep '^osd\.'` in the same pod shows each OSD's cluster address in the storage subnet. During a write, `cap leaf1 -i e1-1 portrange 6800-7300 -c 5` on a front-end link captures no replication traffic between OSDs.
 2. `kubectl -n demo get pvc` shows the claim `Bound` to the Ceph storage class. `NOTES.md` has the `fio` throughput and latency.

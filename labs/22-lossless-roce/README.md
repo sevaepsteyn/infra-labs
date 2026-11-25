@@ -38,7 +38,7 @@ No software switch honors PFC, and DCQCN lives in NIC hardware, so the lab is sp
 12. Write the lossless profile for lab 21's rail switches as a short spec: which DSCP is RoCE and which is CNP, which priority is lossless, the ECN thresholds, the headroom and the watchdog. Compare it with what `nv set qos roce` generates in NVIDIA Air.
 13. Read [Meta's account of RoCE for AI training](https://engineering.fb.com/2024/08/05/data-center-engineering/roce-network-distributed-ai-training-at-scale/) and note what they decided about DCQCN, about hashing low-entropy flows, and why. Then list what [Ultra Ethernet](https://ultraethernet.org/) changes: packet spraying, loss recovery, and whether PFC is still required.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab22` (see [verifying a lab](../../docs/verify.md)). `sender1`, `sender2` and `recv` are the VMs; reach them with `ssh`. Part C and D checks are files in the lab folder.
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab22` (see [verifying a lab](../../docs/verify.md)). `sender1`, `sender2` and `recv` are the VMs; reach them with `ssh`. Part C and D checks are files in the lab folder.
 
 1. `ssh sender1 rdma link show` shows `rxe0` with state `ACTIVE`, `ssh sender1 ib_send_bw -d rxe0 $RECV_IP` prints a bandwidth while `ssh recv ib_send_bw -d rxe0` listens, and `cap router -i eth1 udp port 4791 -c 5` shows the packets.
 2. `on router tc qdisc show dev eth3` shows the netem loss in force. `NOTES.md` has RDMA and TCP throughput at 0%, 0.1% and 1% loss, and the capture shows a NAK followed by resent sequence numbers.

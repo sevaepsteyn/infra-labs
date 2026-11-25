@@ -16,7 +16,7 @@ Fit: national labs · 10–12 GB. Moving big experiment data fast is central to 
 3. Send the same transfer through the firewall path and compare throughput.
 4. Schedule perfSONAR tests, then add loss to the path and see what they catch.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab14` (see [verifying a lab](../../docs/verify.md)). `dtn` and `far` are the two VMs; reach them with `ssh`.
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab14` (see [verifying a lab](../../docs/verify.md)). `dtn` and `far` are the two VMs; reach them with `ssh`.
 
 1. `on wan tc qdisc show dev eth1` shows `netem delay 60ms`, and `ssh far ping -c 3 $DTN_IP` reports a round trip of about 60 ms.
 2. `ssh dtn sysctl net.ipv4.tcp_congestion_control net.core.rmem_max` shows the tuned values, and `ssh far iperf3 -c $DTN_IP -t 30` gives the throughput. `NOTES.md` has it for default and tuned settings, and the tuned figure is higher.

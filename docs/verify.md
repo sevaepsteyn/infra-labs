@@ -19,10 +19,10 @@ The labs are specs, so the checks assume the names below. Use the same names whe
 
 ## Helpers
 
-Checks on containerlab nodes use the functions in [shared/verify.sh](../shared/verify.sh). Load them once per shell, with the topology name:
+Checks on containerlab nodes use the functions in [shared/helpers.sh](../shared/helpers.sh). Load them once per shell, with the topology name:
 
 ```sh
-source shared/verify.sh lab03
+source shared/helpers.sh lab03
 ```
 
 | Helper | What it runs | Example |

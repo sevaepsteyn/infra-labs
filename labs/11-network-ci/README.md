@@ -16,7 +16,7 @@ Fit: both · 10–14 GB · uses lab 3's configs. Safe change across a large flee
 3. Open a pull request that breaks a BGP peer and confirm the check fails and reports on the PR.
 4. Add a rollout step that runs only after merge.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab03` (see [verifying a lab](../../docs/verify.md)). Run the `gh` checks in the private mirror.
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab03` (see [verifying a lab](../../docs/verify.md)). Run the `gh` checks in the private mirror.
 
 1. `gh api 'repos/{owner}/{repo}/actions/runners' --jq '.runners[] | "\(.name) \(.status)"'` shows the runner `online`, and `gh repo view --json visibility -q .visibility` prints `PRIVATE`.
 2. `pytest -q` passes against a deployed lab, and `gh run list --limit 1 --json conclusion -q '.[0].conclusion'` prints `success`.

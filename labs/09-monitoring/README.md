@@ -15,7 +15,7 @@ Fit: both · 16–18 GB · uses lab 3's fabric. Both kinds of employer run opera
 3. Alert when a BGP session drops or interface errors rise; trigger it by shutting a link.
 4. Define a success-rate SLO for lab 3's service and watch a failure burn it.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab03` (see [verifying a lab](../../docs/verify.md)). The checks query Prometheus through `kubectl -n monitoring port-forward svc/prometheus-operated 9090 &`.
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab03` (see [verifying a lab](../../docs/verify.md)). The checks query Prometheus through `kubectl -n monitoring port-forward svc/prometheus-operated 9090 &`.
 
 1. `curl -s localhost:9090/api/v1/label/source/values | jq .data` lists every switch, and `curl -s localhost:9090/api/v1/targets | jq -r '.data.activeTargets[] | "\(.labels.job) \(.health)"' | sort | uniq -c` shows the gnmic and Hubble targets `up`.
 2. The dashboard is in git and loads in Grafana. Its three panels (link traffic, BGP session state, pod flows) all move when you run `on client curl http://$SVC_IP` in a loop.

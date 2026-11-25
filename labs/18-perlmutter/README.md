@@ -38,7 +38,7 @@ The NFS stand-ins use NFS-Ganesha, a userspace server. The kernel NFS server in 
 4. Put HMN, NMN and CAN in separate VLANs or VRFs on the SMNet switch; run DNS and monitoring in the kind cluster on the NMN and expose an API gateway only on the CAN.
 5. Run a small Slurm job across the compute nodes, with iperf3 between them as stand-in MPI traffic, then fail a global link and watch it reroute through the third group.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab18` (see [verifying a lab](../../docs/verify.md)).
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab18` (see [verifying a lab](../../docs/verify.md)).
 
 1. `srl hsn1 "show network-instance default protocols bgp neighbor"` (or the OSPF equivalent) shows every neighbor up, and `on compute1 traceroute -n $COMPUTE3_IP` to a node in another group crosses two switches, not three.
 2. `srl hsn1 "show interface lag1"` shows the LAG up with four members. With members failed one at a time, `on login1 iperf3 -c $NGF_IP -t 10` keeps running at a lower rate until the last member goes.

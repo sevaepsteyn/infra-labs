@@ -16,7 +16,7 @@ Fit: national labs · 16–24 GB · needs x86 VM images. Research networks join 
 3. Fail P router 1 and time the switch to P router 2, with and without TI-LFA.
 4. Rebuild the core with SRv6 instead of SR-MPLS and compare.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab19` (see [verifying a lab](../../docs/verify.md)). The P and PE commands are for XRd; on vJunos, connect with `ssh` and use the Junos equivalents.
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab19` (see [verifying a lab](../../docs/verify.md)). The P and PE commands are for XRd; on vJunos, connect with `ssh` and use the Junos equivalents.
 
 1. `xr p1 "show isis segment-routing label table"` lists a prefix SID for each router, and `xr p1 "show mpls forwarding"` shows a label entry for each PE loopback.
 2. `frr ce-a1 "show ip route bgp"` has tenant A's remote prefix and none of tenant B's, `on ce-a1 ping -c 3 $CE_A2_IP` succeeds, and `on ce-a1 ping -c 3 $CE_B2_IP` fails.

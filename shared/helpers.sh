@@ -1,6 +1,6 @@
 # Helpers for the Verify checks in each lab's README.
 #
-#   source shared/verify.sh lab03
+#   source shared/helpers.sh lab03
 #
 # The argument is the containerlab topology name, so the helpers address
 # containers as clab-<name>-<node>. See docs/verify.md for the conventions.
@@ -9,7 +9,7 @@ if [ -n "${1:-}" ]; then
   LAB="$1"
 fi
 if [ -z "${LAB:-}" ]; then
-  echo "usage: source shared/verify.sh <containerlab name, e.g. lab03>" >&2
+  echo "usage: source shared/helpers.sh <containerlab name, e.g. lab03>" >&2
   return 1 2>/dev/null || exit 1
 fi
 

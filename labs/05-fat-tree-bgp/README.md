@@ -19,7 +19,7 @@ Fit: both · about 6 GB · builds on lab 3. Lab 3's fabric has two tiers and fou
 7. Look for polarization: check whether the flows an edge switch sends up one link all take the same core link at the next tier. FRR containers share the host kernel and, on most kernels, its hash seed, so it tends to show up without setup. Change the seed or hash fields per tier where the kernel allows it (`fib_multipath_hash_seed` on newer kernels) and measure again.
 8. Drain a core switch for maintenance with `bgp graceful-shutdown` while a transfer runs; confirm zero loss, then compare with shutting it down cold.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab05` (see [verifying a lab](../../docs/verify.md)).
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab05` (see [verifying a lab](../../docs/verify.md)).
 
 1. No command. `NOTES.md` has the counts for all four designs. Non-blocking, 1,024 ports fit two tiers with 48 switches (32 leaves, 16 spines); 8,192 ports need three tiers with 640 switches (256 edge, 256 aggregation, 128 core).
 2. `frr edge1-1 "show ip route $FAR_HOST_PREFIX"` shows two next hops, and the same command on `agg1-1` shows two more, which makes four paths between pods. `NOTES.md` says where `multipath-relax` was needed.

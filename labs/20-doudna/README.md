@@ -33,7 +33,7 @@ This lab reproduces the network pattern NERSC publishes for Perlmutter, which Do
 4. Deploy an ingress and a sample science gateway in the kind cluster; announce its IP with Cilium BGP and reach it from the WAN peer.
 5. Push data from the WAN into the DTN and storage, then fail a border router and watch the path move.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab20` (see [verifying a lab](../../docs/verify.md)).
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab20` (see [verifying a lab](../../docs/verify.md)).
 
 1. `srl spine1 "show network-instance default protocols bgp neighbor"` shows every leaf and border session `established`, and `srl leaf1 "show network-instance default route-table ipv4-unicast prefix 0.0.0.0/0"` shows a default route with a next hop toward each spine.
 2. `frr wan "show ip route $COMPUTE1_IP/32"` shows the node's /32, and `on compute1 ping -c 3 $STORAGE1_IP` and `on compute1 ping -c 3 $GW_IP` both succeed.

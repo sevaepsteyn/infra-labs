@@ -17,7 +17,7 @@ Each node peers with both leaves and advertises its pod CIDR and LoadBalancer se
 3. Break things: shut a spine, a leaf, one node-to-leaf link, or a node, and watch routes withdraw and ECMP converge.
 4. Compare `externalTrafficPolicy: Local` vs `Cluster`, and add BFD to see how failover time changes.
 
-**Verify:** one check per exercise, same numbers; load the helpers first with `source ../../shared/verify.sh lab03` (see [verifying a lab](../../docs/verify.md)).
+**Verify:** one check per exercise, same numbers; load the helpers in [shared/helpers.sh](../../shared/helpers.sh) first with `source ../../shared/helpers.sh lab03` (see [verifying a lab](../../docs/verify.md)).
 
 1. `srl leaf1 "show network-instance default protocols bgp neighbor"` shows every session `established` on each switch, and `cilium bgp peers` shows two established sessions per node.
 2. `SVC_IP=$(svc_ip demo web); srl border "show network-instance default route-table ipv4-unicast prefix $SVC_IP/32"` shows two next hops, and `on client curl -s -m 3 -o /dev/null -w '%{http_code}\n' http://$SVC_IP` prints `200`.
